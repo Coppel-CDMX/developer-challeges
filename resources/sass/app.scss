@@ -1,3 +1,9 @@
+// SweetAlert2
+@import '~sweetalert2/src/variables';
+$swal2-cancel-button-background-color: #3c3c54;
+$swal2-confirm-button-background-color: #00B5DD;
+@import '~sweetalert2/src/sweetalert2';
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -6,3 +12,34 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.loader {
+    content: '';
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background: #09203f;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pill {
+    background: #00357a;
+    transition: ease all 0.15s;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 1px 1px 2.5px #09203f;
+    }
+
+    .pill-erase {
+        font-size: 14px;
+        padding: 1px 6px;
+        margin-left: 2px;
+    }
+}
