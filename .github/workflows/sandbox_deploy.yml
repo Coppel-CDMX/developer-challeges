@@ -1,0 +1,23 @@
+name: Deployment to SANDBOX
+
+on:
+  push:
+    branches:
+      - ENRIQUE_CARRANZA_BALDERAS
+  pull_request:
+    branches:
+      - ENRIQUE_CARRANZA_BALDERAS
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SANDBOX_HOST }}
+          username: ${{ secrets.SANDBOX_USERNAME }}
+          port: ${{ secrets.SANDBOX_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: "cd /var/www/html/developer-challeges && chmod +x ./scripts/deploy.sh && ./scripts/deploy.sh"
