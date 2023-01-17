@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                    <button type="submit" class="btn btn-success">Ingresar</button>
                     <router-link to="register" class="btn btn-secondary">Registrarse</router-link>
                 </div>
             </form>

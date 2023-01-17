@@ -28,8 +28,10 @@ const user = {
             state.user = user;
         },
         errorResponse(state, { response }) {
-            if (response && response.data) {
-                const errors = JSON.parse(response.data);
+            if (response.data.error) {
+                state.errors = [...state.errors, response.data.error];
+            } else if (response.data.errors) {
+                const errors = JSON.parse(response.data.errors);
 
                 for (const prop in errors) {
                     errors[prop].forEach(error => state.errors = [...state.errors, error]);

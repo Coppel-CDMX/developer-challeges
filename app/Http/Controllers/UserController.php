@@ -13,6 +13,18 @@ class UserController extends Controller
 {
     public function authenticate(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->toJson()], 400);
+        }
+
         $credentials = $request->only('email', 'password');
 
         try {
@@ -56,7 +68,7 @@ class UserController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+            return response()->json(['errors' => $validator->errors()->toJson()], 400);
         }
 
         $user = User::create([

@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                    <button type="submit" class="btn btn-success">Registrarse</button>
                     <router-link to="login" class="btn btn-secondary">Iniciar sesión</router-link>
                 </div>
             </form>
