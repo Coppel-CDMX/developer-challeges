@@ -65,28 +65,24 @@
                 <p>Total de tareas: {{ tasks.total | formatNumber }}</p>
 
                 <Table :params="tasks" v-on:page-selected="search">
-                    <template v-slot:head>
-                        <th class="text-center">Acciones</th>
-                        <th class="text-center">Título</th>
-                        <th class="text-center">Descripción</th>
-                        <th class="text-center">Prioridad</th>
-                        <th class="text-center">Estatus</th>
-                        <th class="text-center">Fecha de creación</th>
-                        <th class="text-center">Fecha de última actualización</th>
-                    </template>
+                    <div class="card-deck">
+                        <div :class="`card mb-4 mt-2 mx-3 ${task.priority == 0 ? 'border-mutted' : ''} ${task.priority == 1 ? 'border-success' : ''} ${task.priority == 2 ? 'border-warning' : ''} ${task.priority == 3 ? 'border-danger' : ''}`" v-for="task in tasksData" :key="task.id" style="max-width: 400px;display:inline-block;border-width: 3px;">
+                            <div class="card-header">
+                                <h5 class="card-title text-center">{{ task.title }}</h5>
+                            </div>
 
-                    <tr v-for="task in tasksData" :key="task.id">
-                        <td class="text-center">
-                            <button class="btn btn-danger mt-2" @click="deleteTask(task.id)">Eliminar</button>
-                            <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#updateModal" @click="openUpdateModal(task)">Editar</button>
-                        </td>
-                        <td>{{ task.title }}</td>
-                        <td>{{ task.description }}</td>
-                        <td class="text-center">{{ getPriorityText(task.priority) }}</td>
-                        <td class="text-center">{{ task.status.name }}</td>
-                        <td class="text-center">{{ $moment(task.created_at).format('DD/MM/YYYY h:mm:ss a') }}</td>
-                        <td class="text-center">{{ $moment(task.updated_at).format('DD/MM/YYYY h:mm:ss a') }}</td>
-                    </tr>
+                            <div class="card-body">
+                                <p class="card-text">{{ task.description }}</p>
+                                <p class="card-text text-center">{{ task.status.name }}</p>
+                                <p class="card-text row"><small class="text-muted col-6">Fecha de creación: {{ $moment(task.created_at).format('DD/MM/YYYY h:mm:ss a') }}</small> <small class="text-muted col-6 text-end">Última actualización: {{ $moment(task.updated_at).format('DD/MM/YYYY h:mm:ss a') }}</small></p>
+                            </div>
+
+                            <div class="card-footer text-end">
+                                <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#updateModal" @click="openUpdateModal(task)">Editar</button>
+                                <button class="btn btn-danger mt-2" @click="deleteTask(task.id)">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
                 </Table>
 
                 <p class="mt-3">Total de tareas: {{ tasks.total | formatNumber }}</p>

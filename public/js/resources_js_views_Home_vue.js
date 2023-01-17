@@ -42,16 +42,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Table",
@@ -137,10 +127,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-//
-//
-//
-//
 //
 //
 //
@@ -775,15 +761,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "table-responsive" }, [
-      _c("table", { staticClass: "table table-striped table-hover" }, [
-        _c("thead", { staticClass: "bg-dark text-light" }, [
-          _c("tr", [_vm._t("head")], 2),
-        ]),
-        _vm._v(" "),
-        _c("tbody", [_vm._t("default")], 2),
-      ]),
-    ]),
+    _c("div", { staticClass: "container" }, [_vm._t("default")], 2),
     _vm._v(" "),
     _vm.pages.length > 1 && _vm.paginate === true
       ? _c("nav", [
@@ -1218,115 +1196,115 @@ var render = function () {
                 {
                   attrs: { params: _vm.tasks },
                   on: { "page-selected": _vm.search },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "head",
-                      fn: function () {
-                        return [
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Acciones"),
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Título"),
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Descripción"),
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Prioridad"),
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Estatus"),
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Fecha de creación"),
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Fecha de última actualización"),
-                          ]),
-                        ]
-                      },
-                      proxy: true,
-                    },
-                  ]),
                 },
                 [
-                  _vm._v(" "),
-                  _vm._l(_vm.tasksData, function (task) {
-                    return _c("tr", { key: task.id }, [
-                      _c("td", { staticClass: "text-center" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger mt-2",
-                            on: {
-                              click: function ($event) {
-                                return _vm.deleteTask(task.id)
-                              },
-                            },
+                  _c(
+                    "div",
+                    { staticClass: "card-deck" },
+                    _vm._l(_vm.tasksData, function (task) {
+                      return _c(
+                        "div",
+                        {
+                          key: task.id,
+                          class:
+                            "card mb-4 mt-2 mx-3 " +
+                            (task.priority == 0 ? "border-mutted" : "") +
+                            " " +
+                            (task.priority == 1 ? "border-success" : "") +
+                            " " +
+                            (task.priority == 2 ? "border-warning" : "") +
+                            " " +
+                            (task.priority == 3 ? "border-danger" : ""),
+                          staticStyle: {
+                            "max-width": "400px",
+                            display: "inline-block",
+                            "border-width": "3px",
                           },
-                          [_vm._v("Eliminar")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary mt-2",
-                            attrs: {
-                              "data-bs-toggle": "modal",
-                              "data-bs-target": "#updateModal",
-                            },
-                            on: {
-                              click: function ($event) {
-                                return _vm.openUpdateModal(task)
+                        },
+                        [
+                          _c("div", { staticClass: "card-header" }, [
+                            _c(
+                              "h5",
+                              { staticClass: "card-title text-center" },
+                              [_vm._v(_vm._s(task.title))]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("p", { staticClass: "card-text" }, [
+                              _vm._v(_vm._s(task.description)),
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "card-text text-center" }, [
+                              _vm._v(_vm._s(task.status.name)),
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "card-text row" }, [
+                              _c("small", { staticClass: "text-muted col-6" }, [
+                                _vm._v(
+                                  "Fecha de creación: " +
+                                    _vm._s(
+                                      _vm
+                                        .$moment(task.created_at)
+                                        .format("DD/MM/YYYY h:mm:ss a")
+                                    )
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                { staticClass: "text-muted col-6 text-end" },
+                                [
+                                  _vm._v(
+                                    "Última actualización: " +
+                                      _vm._s(
+                                        _vm
+                                          .$moment(task.updated_at)
+                                          .format("DD/MM/YYYY h:mm:ss a")
+                                      )
+                                  ),
+                                ]
+                              ),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-footer text-end" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary mt-2",
+                                attrs: {
+                                  "data-bs-toggle": "modal",
+                                  "data-bs-target": "#updateModal",
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.openUpdateModal(task)
+                                  },
+                                },
                               },
-                            },
-                          },
-                          [_vm._v("Editar")]
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(task.title))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(task.description))]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(_vm.getPriorityText(task.priority))),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(task.status.name)),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm
-                              .$moment(task.created_at)
-                              .format("DD/MM/YYYY h:mm:ss a")
-                          )
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm
-                              .$moment(task.updated_at)
-                              .format("DD/MM/YYYY h:mm:ss a")
-                          )
-                        ),
-                      ]),
-                    ])
-                  }),
-                ],
-                2
+                              [_vm._v("Editar")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger mt-2",
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.deleteTask(task.id)
+                                  },
+                                },
+                              },
+                              [_vm._v("Eliminar")]
+                            ),
+                          ]),
+                        ]
+                      )
+                    }),
+                    0
+                  ),
+                ]
               ),
               _vm._v(" "),
               _c("p", { staticClass: "mt-3" }, [

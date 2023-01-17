@@ -1,17 +1,7 @@
 <template>
     <div>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead class="bg-dark text-light">
-                    <tr>
-                        <slot name="head"></slot>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <slot></slot>
-                </tbody>
-            </table>
+        <div class="container">
+            <slot></slot>
         </div>
 
         <nav v-if="pages.length > 1 && paginate === true">
