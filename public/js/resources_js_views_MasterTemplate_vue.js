@@ -314,7 +314,7 @@ var render = function () {
     "nav",
     {
       staticClass:
-        "navbar navbar-expand-lg navbar-light bg-light p-3 justify-content-between",
+        "navbar navbar-expand-lg navbar-light bg-light py-3 px-5 justify-content-between",
     },
     [
       _vm._m(0),

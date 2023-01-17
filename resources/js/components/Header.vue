@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light p-3 justify-content-between">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-5 justify-content-between">
         <a class="navbar-brand" href="#">
             <img src="/images/EnriqueCBC.png" style="width:100px;"/>
         </a>

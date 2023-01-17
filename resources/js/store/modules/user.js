@@ -28,9 +28,15 @@ const user = {
             state.user = user;
         },
         errorResponse(state, { response }) {
-            response && response.data.error
-                ? state.errors = [...state.errors, response.data.error]
-                : state.errors = ['Ocurrió un error'];
+            if (response && response.data) {
+                const errors = JSON.parse(response.data);
+
+                for (const prop in errors) {
+                    errors[prop].forEach(error => state.errors = [...state.errors, error]);
+                }
+            } else {
+                state.errors = ['Ocurrió un error'];
+            }
         }
     },
     actions: {
@@ -39,6 +45,16 @@ const user = {
 
             try {
                 const response = await axios.post('/api/signin', params);
+                commit('authenticated', response);
+            } catch(error) {
+                commit('errorResponse', error);
+            }
+        },
+        async register({ commit }, params) {
+            commit('cleanErrors');
+
+            try {
+                const response = await axios.post('/api/register', params);
                 commit('authenticated', response);
             } catch(error) {
                 commit('errorResponse', error);

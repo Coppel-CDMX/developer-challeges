@@ -62,6 +62,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
+//
 
 
 
@@ -97,9 +98,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     errors: function errors(newValue) {
       if (newValue.length > 0) {
+        var text = "";
+        newValue.forEach(function (error) {
+          return text += "".concat(error, "<br>");
+        });
         this.$swal.fire({
           title: "Ocurrió un error",
-          text: newValue[0],
+          html: text,
           icon: "error",
           confirmButtonText: "Aceptar"
         });
@@ -219,14 +224,7 @@ var render = function () {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "mb-3 col-4" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "form-label d-flex justify-content-start",
-                  attrs: { for: "inputEmail" },
-                },
-                [_vm._v("Correo electrónico")]
-              ),
+              _vm._m(1),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -256,14 +254,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "mb-5 col-4" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "form-label d-flex justify-content-start",
-                  attrs: { for: "inputPassword" },
-                },
-                [_vm._v("Contraseña")]
-              ),
+              _vm._m(2),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -292,7 +283,27 @@ var render = function () {
               }),
             ]),
             _vm._v(" "),
-            _vm._m(1),
+            _c(
+              "div",
+              { staticClass: "col-4" },
+              [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("Ingresar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { to: "register" },
+                  },
+                  [_vm._v("Registrarse")]
+                ),
+              ],
+              1
+            ),
           ]
         ),
       ]),
@@ -322,13 +333,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Ingresar")]
-      ),
-    ])
+    return _c(
+      "label",
+      {
+        staticClass: "form-label d-flex justify-content-start",
+        attrs: { for: "inputEmail" },
+      },
+      [
+        _vm._v("Correo electrónico "),
+        _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "form-label d-flex justify-content-start",
+        attrs: { for: "inputPassword" },
+      },
+      [
+        _vm._v("Contraseña "),
+        _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+      ]
+    )
   },
 ]
 render._withStripped = true

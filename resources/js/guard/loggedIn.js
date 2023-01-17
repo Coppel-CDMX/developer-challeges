@@ -4,6 +4,7 @@ import { _TOKEN } from '../config';
 
 export default (to, from, next) => {
     const isLogin = to.name === 'login';
+    const isRegister = to.name === 'register';
 
     try {
         const token = jwtDecode(localStorage.getItem(_TOKEN));
@@ -19,7 +20,7 @@ export default (to, from, next) => {
         localStorage.removeItem(_TOKEN);
         const loginpath = window.location.pathname;
 
-        isLogin
+        isLogin || isRegister
             ? next()
             : next({
                 name: 'login',

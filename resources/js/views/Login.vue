@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="mb-3 col-4">
-                    <label for="inputEmail" class="form-label d-flex justify-content-start">Correo electrónico</label>
+                    <label for="inputEmail" class="form-label d-flex justify-content-start">Correo electrónico <i class="ps-1 text-danger">*</i></label>
 
                     <input
                         type="email"
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="mb-5 col-4">
-                    <label for="inputPassword" class="form-label d-flex justify-content-start">Contraseña</label>
+                    <label for="inputPassword" class="form-label d-flex justify-content-start">Contraseña <i class="ps-1 text-danger">*</i></label>
 
                     <input
                         type="password"
@@ -34,6 +34,7 @@
 
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary">Ingresar</button>
+                    <router-link to="register" class="btn btn-secondary">Registrarse</router-link>
                 </div>
             </form>
         </div>
@@ -74,9 +75,13 @@ export default {
         },
         errors(newValue) {
             if (newValue.length > 0) {
+                let text = "";
+
+                newValue.forEach(error => text += `${error}<br>`);
+
                 this.$swal.fire({
                     title: "Ocurrió un error",
-                    text: newValue[0],
+                    html: text,
                     icon: "error",
                     confirmButtonText: "Aceptar",
                 });
