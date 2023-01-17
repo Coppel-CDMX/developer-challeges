@@ -262,14 +262,11 @@
         },
         computed: {
             ...mapState({
-        //         user: state => state.user.user,
                 newTaskSaved: state => state.task.taskSaved,
                 taskDeleted: state => state.task.taskDeleted,
                 tasksStatuses: state => state.taskStatus.statuses,
                 tasks: state => state.task.tasks,
-        //         vehiclesStatusReasons: state => state.vehiclesStatusReason.items,
-                errors: state => state.task.errors,
-        //         copyLastHistory: state => state.vehiclesHistory.copyLastHistory
+                errors: state => state.task.errors
             }),
             tasksData() {
                 return this.tasks.data || [];
@@ -281,14 +278,6 @@
                     action: 'task/getAll',
                     loader: 'getting tasks'
                 },
-        //         exportVehiclesHistory: {
-        //             action: 'vehiclesHistory/export',
-        //             loader: 'exporting vehicles history'
-        //         },
-        //         copyLastVehiclesHistory: {
-        //             action: 'vehiclesHistory/copyLastHistory',
-        //             loader: 'copying yesterday history'
-        //         },
                 getTasksStatuses: {
                     action: 'taskStatus/getAll',
                     loader: 'getting tasks statuses'
@@ -366,25 +355,7 @@
                         this.filters.period.end = null;
                         break;
                 }
-            },
-        //     exportData() {
-        //         this.exportVehiclesHistory(this.filters);
-        //     },
-        //     async copyData() {
-        //         const { isConfirmed } = await this.$swal.fire({
-        //             title: "¡Atención!",
-        //             text: "¿Estás seguro de copiar los registros no actualizados? Ten en cuenta que esta acción es irreversible.",
-        //             icon: "warning",
-        //             confirmButtonText: "Aceptar",
-        //             cancelButtonText: "Cancelar",
-        //             showConfirmButton: true,
-        //             showCancelButton: true
-        //         });
-
-        //         if (isConfirmed) {
-        //             this.copyLastVehiclesHistory();
-        //         }
-        //     }
+            }
         },
         watch: {
             newTaskSaved(newValue) {
@@ -411,22 +382,7 @@
                         this.showSuccessMessage = false;
                     }, 5000);
                 }
-            },
-        //     copyLastHistory(newValue) {
-        //         if (newValue) {
-        //             this.search();
-        //             this.showSuccessMessage = true;
-
-        //             setTimeout(() => {
-        //                 this.showSuccessMessage = false;
-        //             }, 5000);
-        //         }
-        //     },
-        //     status(newValue) {
-        //         if (newValue) {
-        //             this.fetchVehiclesStatusReasons({vehiclesStatusId: newValue.id});
-        //         }
-        //     }
+            }
         }
     };
 </script>

@@ -397,7 +397,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     }));
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    //         user: state => state.user.user,
     newTaskSaved: function newTaskSaved(state) {
       return state.task.taskSaved;
     },
@@ -410,11 +409,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     tasks: function tasks(state) {
       return state.task.tasks;
     },
-    //         vehiclesStatusReasons: state => state.vehiclesStatusReason.items,
     errors: function errors(state) {
       return state.task.errors;
     }
-    //         copyLastHistory: state => state.vehiclesHistory.copyLastHistory
   })), {}, {
     tasksData: function tasksData() {
       return this.tasks.data || [];
@@ -425,14 +422,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       action: 'task/getAll',
       loader: 'getting tasks'
     },
-    //         exportVehiclesHistory: {
-    //             action: 'vehiclesHistory/export',
-    //             loader: 'exporting vehicles history'
-    //         },
-    //         copyLastVehiclesHistory: {
-    //             action: 'vehiclesHistory/copyLastHistory',
-    //             loader: 'copying yesterday history'
-    //         },
     getTasksStatuses: {
       action: 'taskStatus/getAll',
       loader: 'getting tasks statuses'
@@ -523,23 +512,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           this.filters.period.end = null;
           break;
       }
-    } //     exportData() {
-    //         this.exportVehiclesHistory(this.filters);
-    //     },
-    //     async copyData() {
-    //         const { isConfirmed } = await this.$swal.fire({
-    //             title: "¡Atención!",
-    //             text: "¿Estás seguro de copiar los registros no actualizados? Ten en cuenta que esta acción es irreversible.",
-    //             icon: "warning",
-    //             confirmButtonText: "Aceptar",
-    //             cancelButtonText: "Cancelar",
-    //             showConfirmButton: true,
-    //             showCancelButton: true
-    //         });
-    //         if (isConfirmed) {
-    //             this.copyLastVehiclesHistory();
-    //         }
-    //     }
+    }
   }),
   watch: {
     newTaskSaved: function newTaskSaved(newValue) {
@@ -566,20 +539,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           _this3.showSuccessMessage = false;
         }, 5000);
       }
-    } //     copyLastHistory(newValue) {
-    //         if (newValue) {
-    //             this.search();
-    //             this.showSuccessMessage = true;
-    //             setTimeout(() => {
-    //                 this.showSuccessMessage = false;
-    //             }, 5000);
-    //         }
-    //     },
-    //     status(newValue) {
-    //         if (newValue) {
-    //             this.fetchVehiclesStatusReasons({vehiclesStatusId: newValue.id});
-    //         }
-    //     }
+    }
   }
 });
 
