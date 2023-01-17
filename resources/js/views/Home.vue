@@ -98,7 +98,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addModalLabel">Agregando Tarea</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="CloseAddModal"></button>
                     </div>
 
                     <div class="modal-body">
@@ -162,7 +162,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="updateModalLabel">Actualizando Tarea</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="CloseUpdateModal"></button>
                     </div>
 
                     <div class="modal-body">
@@ -371,7 +371,8 @@
                         priority: null,
                         status: null
                     };
-                    this.$refs.Close.click();
+                    this.$refs.CloseAddModal.click();
+                    this.$refs.CloseUpdateModal.click();
                     this.showSuccessMessage = true;
 
                     setTimeout(() => {

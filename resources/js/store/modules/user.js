@@ -57,7 +57,7 @@ const user = {
 
             try {
                 const response = await axios.post('/api/register', params);
-                commit('authenticated', response);
+                window.location.href = '/login';
             } catch(error) {
                 commit('errorResponse', error);
             }

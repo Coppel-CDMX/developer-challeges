@@ -529,7 +529,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           priority: null,
           status: null
         };
-        this.$refs.Close.click();
+        this.$refs.CloseAddModal.click();
+        this.$refs.CloseUpdateModal.click();
         this.showSuccessMessage = true;
         setTimeout(function () {
           _this2.showSuccessMessage = false;
@@ -1357,7 +1358,7 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("button", {
-                ref: "Close",
+                ref: "CloseAddModal",
                 staticClass: "btn-close",
                 attrs: {
                   type: "button",
@@ -1626,7 +1627,7 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("button", {
-                ref: "Close",
+                ref: "CloseUpdateModal",
                 staticClass: "btn-close",
                 attrs: {
                   type: "button",
