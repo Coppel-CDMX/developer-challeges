@@ -65,8 +65,8 @@
                         <th class="text-center">Acciones</th>
                         <th class="text-center">Título</th>
                         <th class="text-center">Descripción</th>
-                        <th class="text-center">Estatus</th>
                         <th class="text-center">Prioridad</th>
+                        <th class="text-center">Estatus</th>
                         <th class="text-center">Fecha de creación</th>
                         <th class="text-center">Fecha de última actualización</th>
                     </template>
@@ -74,21 +74,12 @@
                     <tr v-for="task in tasksData" :key="task.id">
                         <td class="text-center">
                             <button class="btn btn-danger mt-2" @click="deleteTask(task.id)">Eliminar</button>
-
-                            <!-- <button
-                                class="btn btn-primary mt-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#updateModal"
-                                @click="openModal(history)"
-                                v-if="$moment().diff($moment(history.created_at), 'days') == 0"
-                            >
-                                Editar
-                            </button> -->
+                            <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#updateModal" @click="openUpdateModal(task)">Editar</button>
                         </td>
                         <td>{{ task.title }}</td>
                         <td>{{ task.description }}</td>
-                        <td class="text-center">{{ task.status.name }}</td>
                         <td class="text-center">{{ getPriorityText(task.priority) }}</td>
+                        <td class="text-center">{{ task.status.name }}</td>
                         <td class="text-center">{{ $moment(task.created_at).format('DD/MM/YYYY h:mm:ss a') }}</td>
                         <td class="text-center">{{ $moment(task.updated_at).format('DD/MM/YYYY h:mm:ss a') }}</td>
                     </tr>
@@ -162,66 +153,71 @@
             </div>
         </div>
 
-        <!-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">Actualizando registro</h5>
+                        <h5 class="modal-title" id="updateModalLabel">Actualizando Tarea</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="Close"></button>
                     </div>
 
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col text-center">
-                                <label>ID SAP</label>
-                                <input type="text" class="form-control text-muted" readonly :value="historySelected ? historySelected.vehicle.id_sap : '-'">
-                            </div>
-
-                            <div class="col text-center">
-                                <label>VIN</label>
-                                <input type="text" class="form-control text-muted" readonly :value="historySelected ? historySelected.vehicle.vin : '-'">
-                            </div>
-
-                            <div class="col text-center">
-                                <label>ID Agencia</label>
-                                <input type="text" class="form-control text-muted" readonly :value="historySelected ? historySelected.vehicle.agency.code : '-'">
-                            </div>
+                        <div class="mt-3 alert alert-danger" role="alert" v-if="errors.length > 0">
+                            <h6 class="text-center" v-for="error in errors" :key="error">{{ error }}</h6>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col">
-                                <label>Estatus <strong class="text-danger">*</strong></label>
-
-                                <select class="form-control" v-model="status">
-                                    <option :value="null">Seleccione uno...</option>
-                                    <option :value="vehicleStatus" v-for="vehicleStatus in vehiclesStatuses" :key="vehicleStatus.id">
-                                        {{ vehicleStatus.name }}
-                                    </option>
-                                </select>
+                        <template v-if="taskSelected">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <label>Título</label>
+                                    <input type="text" class="form-control" v-model="taskSelected.title">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row mt-3">
-                            <div class="col">
-                                <label>Motivo del estatus</label>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <label>Descripción</label>
 
-                                <select class="form-control" v-model="statusReason" :disabled="!status || status.symbol == 'disponible'">
-                                    <option :value="null">Seleccione uno...</option>
-                                    <option :value="vehiclesStatusReason" v-for="vehiclesStatusReason in vehiclesStatusReasons" :key="vehiclesStatusReason.id">
-                                        {{ vehiclesStatusReason.name }}
-                                    </option>
-                                </select>
+                                    <textarea class="form-control" v-model="taskSelected.description"></textarea>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <label>Prioridad</label>
+
+                                    <select class="form-control" v-model="taskSelected.priority">
+                                        <option :value="null">Seleccione una...</option>
+                                        <option :value="0">Baja</option>
+                                        <option :value="1">Normal</option>
+                                        <option :value="2">Alta</option>
+                                        <option :value="3">Urgente</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <label>Estatus</label>
+
+                                    <select class="form-control" v-model="taskSelected.status">
+                                        <option :value="null">Seleccione uno...</option>
+                                        <option :value="taskStatus" v-for="taskStatus in tasksStatuses" :key="taskStatus.id">
+                                            {{ taskStatus.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </template>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-success" v-if="status" @click.stop.prevent="updateRegister">Actualizar</button>
+                        <button type="button" class="btn btn-success" @click.stop.prevent="updateTask">Actualizar</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -305,10 +301,10 @@
                     action: 'task/insertOne',
                     loader: 'adding new task'
                 },
-        //         updateExistRegister: {
-        //             action: 'vehiclesHistory/updateOne',
-        //             loader: 'updating new history register'
-        //         }
+                updateOneTask: {
+                    action: 'task/updateOne',
+                    loader: 'updating one task'
+                }
             }),
             search(page = 1) {
                 this.getTasks({
@@ -354,23 +350,12 @@
 
                 return priorityText;
             },
-        //     updateRegister() {
-        //         const updatedRegister = {
-        //             ...this.historySelected,
-        //             status: this.status,
-        //             statusReason: this.statusReason
-        //         };
-
-        //         this.updateExistRegister(updatedRegister);
-        //     },
-        //     vehicleAge(vehicleDate) {
-        //         const dateNow = this.$moment();
-        //         return dateNow.diff(vehicleDate, 'years');
-        //     },
-            // openModal(task = null) {
-                // this.historySelected = history;
-                // this.status = history.status;
-            // },
+            updateTask() {
+                this.updateOneTask(this.taskSelected);
+            },
+            openUpdateModal(task) {
+                this.taskSelected = {...task};
+            },
             clearFilter(filter) {
                 switch(filter) {
                     case 'keyword':

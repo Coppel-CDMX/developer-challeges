@@ -360,10 +360,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -448,11 +444,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     addNewTask: {
       action: 'task/insertOne',
       loader: 'adding new task'
+    },
+    updateOneTask: {
+      action: 'task/updateOne',
+      loader: 'updating one task'
     }
-    //         updateExistRegister: {
-    //             action: 'vehiclesHistory/updateOne',
-    //             loader: 'updating new history register'
-    //         }
   })), {}, {
     search: function search() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -511,22 +507,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       }
       return priorityText;
     },
-    //     updateRegister() {
-    //         const updatedRegister = {
-    //             ...this.historySelected,
-    //             status: this.status,
-    //             statusReason: this.statusReason
-    //         };
-    //         this.updateExistRegister(updatedRegister);
-    //     },
-    //     vehicleAge(vehicleDate) {
-    //         const dateNow = this.$moment();
-    //         return dateNow.diff(vehicleDate, 'years');
-    //     },
-    // openModal(task = null) {
-    // this.historySelected = history;
-    // this.status = history.status;
-    // },
+    updateTask: function updateTask() {
+      this.updateOneTask(this.taskSelected);
+    },
+    openUpdateModal: function openUpdateModal(task) {
+      this.taskSelected = _objectSpread({}, task);
+    },
     clearFilter: function clearFilter(filter) {
       switch (filter) {
         case 'keyword':
@@ -1249,11 +1235,11 @@ var render = function () {
                           ]),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Estatus"),
+                            _vm._v("Prioridad"),
                           ]),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Prioridad"),
+                            _vm._v("Estatus"),
                           ]),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
@@ -1286,6 +1272,23 @@ var render = function () {
                           },
                           [_vm._v("Eliminar")]
                         ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary mt-2",
+                            attrs: {
+                              "data-bs-toggle": "modal",
+                              "data-bs-target": "#updateModal",
+                            },
+                            on: {
+                              click: function ($event) {
+                                return _vm.openUpdateModal(task)
+                              },
+                            },
+                          },
+                          [_vm._v("Editar")]
+                        ),
                       ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(task.title))]),
@@ -1293,11 +1296,11 @@ var render = function () {
                       _c("td", [_vm._v(_vm._s(task.description))]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(task.status.name)),
+                        _vm._v(_vm._s(_vm.getPriorityText(task.priority))),
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(_vm.getPriorityText(task.priority))),
+                        _vm._v(_vm._s(task.status.name)),
                       ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
@@ -1595,6 +1598,290 @@ var render = function () {
                   },
                 },
                 [_vm._v("Guardar")]
+              ),
+            ]),
+          ]),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "updateModal",
+          tabindex: "-1",
+          "aria-labelledby": "updateModalLabel",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "updateModalLabel" },
+                },
+                [_vm._v("Actualizando Tarea")]
+              ),
+              _vm._v(" "),
+              _c("button", {
+                ref: "Close",
+                staticClass: "btn-close",
+                attrs: {
+                  type: "button",
+                  "data-bs-dismiss": "modal",
+                  "aria-label": "Close",
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "modal-body" },
+              [
+                _vm.errors.length > 0
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "mt-3 alert alert-danger",
+                        attrs: { role: "alert" },
+                      },
+                      _vm._l(_vm.errors, function (error) {
+                        return _c(
+                          "h6",
+                          { key: error, staticClass: "text-center" },
+                          [_vm._v(_vm._s(error))]
+                        )
+                      }),
+                      0
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.taskSelected
+                  ? [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col text-center" }, [
+                          _c("label", [_vm._v("Título")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.taskSelected.title,
+                                expression: "taskSelected.title",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.taskSelected.title },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.taskSelected,
+                                  "title",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row mt-3" }, [
+                        _c("div", { staticClass: "col" }, [
+                          _c("label", [_vm._v("Descripción")]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.taskSelected.description,
+                                expression: "taskSelected.description",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            domProps: { value: _vm.taskSelected.description },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.taskSelected,
+                                  "description",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row mt-3" }, [
+                        _c("div", { staticClass: "col" }, [
+                          _c("label", [_vm._v("Prioridad")]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.taskSelected.priority,
+                                  expression: "taskSelected.priority",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.taskSelected,
+                                    "priority",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                              },
+                            },
+                            [
+                              _c("option", { domProps: { value: null } }, [
+                                _vm._v("Seleccione una..."),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { domProps: { value: 0 } }, [
+                                _vm._v("Baja"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { domProps: { value: 1 } }, [
+                                _vm._v("Normal"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { domProps: { value: 2 } }, [
+                                _vm._v("Alta"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { domProps: { value: 3 } }, [
+                                _vm._v("Urgente"),
+                              ]),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row mt-3" }, [
+                        _c("div", { staticClass: "col" }, [
+                          _c("label", [_vm._v("Estatus")]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.taskSelected.status,
+                                  expression: "taskSelected.status",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.taskSelected,
+                                    "status",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                              },
+                            },
+                            [
+                              _c("option", { domProps: { value: null } }, [
+                                _vm._v("Seleccione uno..."),
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.tasksStatuses, function (taskStatus) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: taskStatus.id,
+                                    domProps: { value: taskStatus },
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(taskStatus.name) +
+                                        "\n                                    "
+                                    ),
+                                  ]
+                                )
+                              }),
+                            ],
+                            2
+                          ),
+                        ]),
+                      ]),
+                    ]
+                  : _vm._e(),
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-bs-dismiss": "modal" },
+                },
+                [_vm._v("Cancelar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function ($event) {
+                      $event.stopPropagation()
+                      $event.preventDefault()
+                      return _vm.updateTask.apply(null, arguments)
+                    },
+                  },
+                },
+                [_vm._v("Actualizar")]
               ),
             ]),
           ]),

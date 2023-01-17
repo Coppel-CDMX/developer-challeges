@@ -75,7 +75,7 @@ const task = {
             commit('setSaved', false);
 
             try {
-                const { data } = await axios.put(`/api/tasks/${params.taskId}`, params);
+                const { data } = await axios.put(`/api/tasks/${params.id}`, params);
                 dispatch('getAll', data);
                 commit('setSaved', true);
             } catch (errors) {
