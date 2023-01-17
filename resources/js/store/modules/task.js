@@ -82,11 +82,11 @@ const task = {
                 commit('setErrors', errors);
             }
         },
-        async deleteOne({ commit, dispatch }, params) {
+        async deleteOne({ commit, dispatch }, taskId) {
             commit('setDeleted', false);
 
             try {
-                const { data } = await axios.delete(`/api/tasks/${params.taskId}`);
+                const { data } = await axios.delete(`/api/tasks/${taskId}`);
                 dispatch('getAll', data);
                 commit('setDeleted', true);
             } catch (errors) {

@@ -19,6 +19,17 @@
                         </div>
                     </div>
 
+                    <div class="col-auto text-center">
+                        <label for="status" class="col-form-label">Estatus</label>
+
+                        <select class="form-control" v-model="filters.status">
+                            <option :value="null">Seleccione uno...</option>
+                            <option :value="taskStatus" v-for="taskStatus in tasksStatuses" :key="taskStatus.id">
+                                {{ taskStatus.name }}
+                            </option>
+                        </select>
+                    </div>
+
                     <div class="col-auto">
                         <button class="btn btn-primary mt-2" @click="search">Buscar</button>
                         <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#addModal">Agregar</button>
@@ -62,14 +73,7 @@
 
                     <tr v-for="task in tasksData" :key="task.id">
                         <td class="text-center">
-                            <!-- <button
-                                class="btn btn-success mt-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#addModal"
-                                @click="openModal(history)"
-                            >
-                                Agregar
-                            </button> -->
+                            <button class="btn btn-danger mt-2" @click="deleteTask(task.id)">Eliminar</button>
 
                             <!-- <button
                                 class="btn btn-primary mt-2"
@@ -238,7 +242,8 @@
                     period: {
                         start: null,
                         end: null
-                    }
+                    },
+                    status: null
                 },
                 newTask: {
                     title: '',
@@ -263,6 +268,7 @@
             ...mapState({
         //         user: state => state.user.user,
                 newTaskSaved: state => state.task.taskSaved,
+                taskDeleted: state => state.task.taskDeleted,
                 tasksStatuses: state => state.taskStatus.statuses,
                 tasks: state => state.task.tasks,
         //         vehiclesStatusReasons: state => state.vehiclesStatusReason.items,
@@ -291,10 +297,10 @@
                     action: 'taskStatus/getAll',
                     loader: 'getting tasks statuses'
                 },
-        //         fetchVehiclesStatusReasons: {
-        //             action: 'vehiclesStatusReason/fetchAll',
-        //             loader: 'getting vehicles status reasons'
-        //         },
+                deleteOneTask: {
+                    action: 'task/deleteOne',
+                    loader: 'deleting one task'
+                },
                 addNewTask: {
                     action: 'task/insertOne',
                     loader: 'adding new task'
@@ -312,6 +318,21 @@
             },
             addTask() {
                 this.addNewTask(this.newTask);
+            },
+            async deleteTask(taskId) {
+                const { isConfirmed } = await this.$swal.fire({
+                    title: "¡Atención!",
+                    html: "¿Estás seguro de eliminar la tarea seleccionada?<br>Ten en cuenta que esta acción es irreversible.",
+                    icon: "warning",
+                    confirmButtonText: "Aceptar",
+                    cancelButtonText: "Cancelar",
+                    showConfirmButton: true,
+                    showCancelButton: true
+                });
+
+                if (isConfirmed) {
+                    this.deleteOneTask(taskId);
+                }
             },
             getPriorityText(priority) {
                 let priorityText = '';
@@ -391,6 +412,16 @@
                     };
                     this.$refs.Close.click();
                     this.showSuccessMessage = true;
+
+                    setTimeout(() => {
+                        this.showSuccessMessage = false;
+                    }, 5000);
+                }
+            },
+            taskDeleted(newValue) {
+                if (newValue) {
+                    this.showSuccessMessage = true;
+
                     setTimeout(() => {
                         this.showSuccessMessage = false;
                     }, 5000);
