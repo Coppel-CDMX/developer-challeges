@@ -1203,7 +1203,7 @@ var render = function () {
             [
               _c("p", [
                 _vm._v(
-                  "Total de registros: " +
+                  "Total de tareas: " +
                     _vm._s(_vm._f("formatNumber")(_vm.tasks.total))
                 ),
               ]),
@@ -1326,7 +1326,7 @@ var render = function () {
               _vm._v(" "),
               _c("p", { staticClass: "mt-3" }, [
                 _vm._v(
-                  "Total de registros: " +
+                  "Total de tareas: " +
                     _vm._s(_vm._f("formatNumber")(_vm.tasks.total))
                 ),
               ]),

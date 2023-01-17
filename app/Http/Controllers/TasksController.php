@@ -15,6 +15,7 @@ class TasksController extends Controller
 {
     public function index(Request $request)
     {
+        $user = $request->user();
         $tasks = Task::query();
 
         if ($keyword = $request->input('keyword', null)) {
@@ -35,14 +36,18 @@ class TasksController extends Controller
         }
 
         $tasks = $tasks->with(['status'])
+            ->where('user_id', $user->id)
             ->paginate(15);
 
         return response()->json($tasks);
     }
 
-    public function getOne($task_id)
+    public function getOne($task_id, Request $request)
     {
-        $task = Task::findOrFail($task_id);
+        $user = $request->user();
+        $task = Task::where('user_id', $user->id)
+            ->where('id', $task_id)
+            ->firstOrFail();
 
         return response()->json($task);
     }

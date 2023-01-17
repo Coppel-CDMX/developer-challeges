@@ -62,7 +62,7 @@
             </div>
 
             <div class="bg-light py-3 px-3 mt-3" v-else>
-                <p>Total de registros: {{ tasks.total | formatNumber }}</p>
+                <p>Total de tareas: {{ tasks.total | formatNumber }}</p>
 
                 <Table :params="tasks" v-on:page-selected="search">
                     <template v-slot:head>
@@ -89,7 +89,7 @@
                     </tr>
                 </Table>
 
-                <p class="mt-3">Total de registros: {{ tasks.total | formatNumber }}</p>
+                <p class="mt-3">Total de tareas: {{ tasks.total | formatNumber }}</p>
             </div>
         </section>
 
