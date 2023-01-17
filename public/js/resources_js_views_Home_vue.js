@@ -373,10 +373,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     return {
       filters: {
         keyword: '',
-        period: {
-          start: null,
-          end: null
-        },
+        period_start: null,
+        period_end: null,
         status: null
       },
       newTask: {
@@ -508,8 +506,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           this.filters.keyword = '';
           break;
         case 'period':
-          this.filters.period.start = null;
-          this.filters.period.end = null;
+          this.filters.period_start = null;
+          this.filters.period_end = null;
           break;
       }
     }
@@ -946,19 +944,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.filters.period.start,
-                    expression: "filters.period.start",
+                    value: _vm.filters.period_start,
+                    expression: "filters.period_start",
                   },
                 ],
                 staticClass: "form-control",
                 attrs: { type: "date", id: "period" },
-                domProps: { value: _vm.filters.period.start },
+                domProps: { value: _vm.filters.period_start },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.filters.period, "start", $event.target.value)
+                    _vm.$set(_vm.filters, "period_start", $event.target.value)
                   },
                 },
               }),
@@ -968,19 +966,19 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.filters.period.end,
-                    expression: "filters.period.end",
+                    value: _vm.filters.period_end,
+                    expression: "filters.period_end",
                   },
                 ],
                 staticClass: "form-control ms-2",
                 attrs: { type: "date", id: "period" },
-                domProps: { value: _vm.filters.period.end },
+                domProps: { value: _vm.filters.period_end },
                 on: {
                   input: function ($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.filters.period, "end", $event.target.value)
+                    _vm.$set(_vm.filters, "period_end", $event.target.value)
                   },
                 },
               }),
@@ -1105,7 +1103,7 @@ var render = function () {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.filters.period.start != null || _vm.filters.period.end != null
+          _vm.filters.period_start != null || _vm.filters.period_end != null
             ? _c(
                 "div",
                 {
@@ -1121,9 +1119,9 @@ var render = function () {
                 [
                   _vm._v(
                     "\n                    Periodo inicio: " +
-                      _vm._s(_vm.filters.period.start) +
+                      _vm._s(_vm.filters.period_start) +
                       " - Periodo final: " +
-                      _vm._s(_vm.filters.period.end) +
+                      _vm._s(_vm.filters.period_end) +
                       " "
                   ),
                   _c(

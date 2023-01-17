@@ -14,8 +14,8 @@
                         <label for="period" class="col-form-label">Periodo de creación</label>
 
                         <div class="d-flex">
-                            <input type="date" id="period" class="form-control" v-model="filters.period.start">
-                            <input type="date" id="period" class="form-control ms-2" v-model="filters.period.end">
+                            <input type="date" id="period" class="form-control" v-model="filters.period_start">
+                            <input type="date" id="period" class="form-control ms-2" v-model="filters.period_end">
                         </div>
                     </div>
 
@@ -43,8 +43,8 @@
                         Palabra clave: {{ filters.keyword }} <strong class="bg-light text-dark rounded-circle pill-erase">X</strong>
                     </div>
 
-                    <div class="col-auto text-light py-2 px-3 rounded-4 pill" @click.stop.prevent="clearFilter('period')" v-if="filters.period.start != null || filters.period.end != null">
-                        Periodo inicio: {{ filters.period.start }} - Periodo final: {{ filters.period.end }} <strong class="bg-light text-dark rounded-circle pill-erase">X</strong>
+                    <div class="col-auto text-light py-2 px-3 rounded-4 pill" @click.stop.prevent="clearFilter('period')" v-if="filters.period_start != null || filters.period_end != null">
+                        Periodo inicio: {{ filters.period_start }} - Periodo final: {{ filters.period_end }} <strong class="bg-light text-dark rounded-circle pill-erase">X</strong>
                     </div>
                 </div>
             </div>
@@ -235,10 +235,8 @@
             return {
                 filters: {
                     keyword: '',
-                    period: {
-                        start: null,
-                        end: null
-                    },
+                    period_start: null,
+                    period_end: null,
                     status: null
                 },
                 newTask: {
@@ -351,8 +349,8 @@
                         this.filters.keyword = '';
                         break;
                     case 'period':
-                        this.filters.period.start = null;
-                        this.filters.period.end = null;
+                        this.filters.period_start = null;
+                        this.filters.period_end = null;
                         break;
                 }
             }

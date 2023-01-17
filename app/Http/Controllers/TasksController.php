@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Log;
+use Carbon\Carbon;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
@@ -14,7 +15,26 @@ class TasksController extends Controller
 {
     public function index(Request $request)
     {
-        $tasks = Task::with(['status'])
+        $tasks = Task::query();
+
+        if ($keyword = $request->input('keyword', null)) {
+            $tasks->where('title', 'like', '%'.$keyword.'%')
+                ->orWhere('description', 'like', '%'.$keyword.'%');
+        }
+
+        if ($periodStart = $request->input('period_start', null)) {
+            $tasks->whereDate('created_at', '>=', Carbon::parse($periodStart));
+        }
+
+        if ($periodEnd = $request->input('period_end', null)) {
+            $tasks->whereDate('created_at', '<=', Carbon::parse($periodEnd));
+        }
+
+        if ($statusId = $request->input('status_id', null)) {
+            $tasks->where('status_id', $statusId);
+        }
+
+        $tasks = $tasks->with(['status'])
             ->paginate(15);
 
         return response()->json($tasks);

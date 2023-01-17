@@ -40,8 +40,13 @@ const task = {
         }
     },
     actions: {
-        async getAll({ commit }, params) {
+        async getAll({ commit }, data) {
             commit('setItems', []);
+
+            const params = {
+                ...data,
+                status_id: data.status ? data.status.id : null
+            };
 
             try {
                 const { data } = await axios.get('/api/tasks', { params });
