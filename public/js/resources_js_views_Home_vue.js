@@ -364,6 +364,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1389,7 +1393,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col text-center" }, [
-                  _c("label", [_vm._v("Título")]),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -1401,7 +1405,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "text" },
+                    attrs: { type: "text", maxlength: "100" },
                     domProps: { value: _vm.newTask.title },
                     on: {
                       input: function ($event) {
@@ -1417,7 +1421,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "row mt-3" }, [
                 _c("div", { staticClass: "col" }, [
-                  _c("label", [_vm._v("Descripción")]),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("textarea", {
                     directives: [
@@ -1429,6 +1433,7 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-control",
+                    attrs: { maxlength: "150", rows: "5" },
                     domProps: { value: _vm.newTask.description },
                     on: {
                       input: function ($event) {
@@ -1443,12 +1448,16 @@ var render = function () {
                       },
                     },
                   }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-end" }, [
+                    _vm._v(_vm._s(_vm.newTask.description.length) + " / 150"),
+                  ]),
                 ]),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "row mt-3" }, [
                 _c("div", { staticClass: "col" }, [
-                  _c("label", [_vm._v("Prioridad")]),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -1509,7 +1518,7 @@ var render = function () {
               _vm._v(" "),
               _c("div", { staticClass: "row mt-3" }, [
                 _c("div", { staticClass: "col" }, [
-                  _c("label", [_vm._v("Estatus")]),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "select",
@@ -1663,7 +1672,7 @@ var render = function () {
                   ? [
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col text-center" }, [
-                          _c("label", [_vm._v("Título")]),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -1675,7 +1684,7 @@ var render = function () {
                               },
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "text" },
+                            attrs: { type: "text", maxlength: "100" },
                             domProps: { value: _vm.taskSelected.title },
                             on: {
                               input: function ($event) {
@@ -1695,7 +1704,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("div", { staticClass: "row mt-3" }, [
                         _c("div", { staticClass: "col" }, [
-                          _c("label", [_vm._v("Descripción")]),
+                          _vm._m(5),
                           _vm._v(" "),
                           _c("textarea", {
                             directives: [
@@ -1707,6 +1716,7 @@ var render = function () {
                               },
                             ],
                             staticClass: "form-control",
+                            attrs: { maxlength: "150", rows: "5" },
                             domProps: { value: _vm.taskSelected.description },
                             on: {
                               input: function ($event) {
@@ -1721,12 +1731,19 @@ var render = function () {
                               },
                             },
                           }),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-end" }, [
+                            _vm._v(
+                              _vm._s(_vm.taskSelected.description.length) +
+                                " / 150"
+                            ),
+                          ]),
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "row mt-3" }, [
+                      _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col" }, [
-                          _c("label", [_vm._v("Prioridad")]),
+                          _vm._m(6),
                           _vm._v(" "),
                           _c(
                             "select",
@@ -1788,7 +1805,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("div", { staticClass: "row mt-3" }, [
                         _c("div", { staticClass: "col" }, [
-                          _c("label", [_vm._v("Estatus")]),
+                          _vm._m(7),
                           _vm._v(" "),
                           _c(
                             "select",
@@ -1887,7 +1904,80 @@ var render = function () {
     ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Título"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Descripción"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Prioridad"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Estatus"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Título"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Descripción"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Prioridad"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Estatus"),
+      _c("i", { staticClass: "ps-1 text-danger" }, [_vm._v("*")]),
+    ])
+  },
+]
 render._withStripped = true
 
 

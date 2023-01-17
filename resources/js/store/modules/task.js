@@ -26,6 +26,8 @@ const task = {
             state.taskDeleted = data;
         },
         setErrors(state, { response }) {
+            state.errors = [];
+
             if (response.data.error) {
                 state.errors = [...state.errors, response.data.error];
             } else if (response.data.errors) {

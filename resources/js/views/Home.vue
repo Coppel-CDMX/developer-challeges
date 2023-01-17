@@ -108,22 +108,24 @@
 
                         <div class="row">
                             <div class="col text-center">
-                                <label>Título</label>
-                                <input type="text" class="form-control" v-model="newTask.title">
+                                <label>Título<i class="ps-1 text-danger">*</i></label>
+                                <input type="text" class="form-control" v-model="newTask.title" maxlength="100">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
-                                <label>Descripción</label>
+                                <label>Descripción<i class="ps-1 text-danger">*</i></label>
 
-                                <textarea class="form-control" v-model="newTask.description"></textarea>
+                                <textarea class="form-control" v-model="newTask.description" maxlength="150" rows="5"></textarea>
+
+                                <p class="text-end">{{ newTask.description.length }} / 150</p>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
-                                <label>Prioridad</label>
+                                <label>Prioridad<i class="ps-1 text-danger">*</i></label>
 
                                 <select class="form-control" v-model="newTask.priority">
                                     <option :value="null">Seleccione una...</option>
@@ -137,7 +139,7 @@
 
                         <div class="row mt-3">
                             <div class="col">
-                                <label>Estatus</label>
+                                <label>Estatus<i class="ps-1 text-danger">*</i></label>
 
                                 <select class="form-control" v-model="newTask.status">
                                     <option :value="null">Seleccione uno...</option>
@@ -173,22 +175,24 @@
                         <template v-if="taskSelected">
                             <div class="row">
                                 <div class="col text-center">
-                                    <label>Título</label>
-                                    <input type="text" class="form-control" v-model="taskSelected.title">
+                                    <label>Título<i class="ps-1 text-danger">*</i></label>
+                                    <input type="text" class="form-control" v-model="taskSelected.title" maxlength="100">
                                 </div>
                             </div>
 
                             <div class="row mt-3">
                                 <div class="col">
-                                    <label>Descripción</label>
+                                    <label>Descripción<i class="ps-1 text-danger">*</i></label>
 
-                                    <textarea class="form-control" v-model="taskSelected.description"></textarea>
+                                    <textarea class="form-control" v-model="taskSelected.description" maxlength="150" rows="5"></textarea>
+
+                                    <p class="text-end">{{ taskSelected.description.length }} / 150</p>
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
+                            <div class="row">
                                 <div class="col">
-                                    <label>Prioridad</label>
+                                    <label>Prioridad<i class="ps-1 text-danger">*</i></label>
 
                                     <select class="form-control" v-model="taskSelected.priority">
                                         <option :value="null">Seleccione una...</option>
@@ -202,7 +206,7 @@
 
                             <div class="row mt-3">
                                 <div class="col">
-                                    <label>Estatus</label>
+                                    <label>Estatus<i class="ps-1 text-danger">*</i></label>
 
                                     <select class="form-control" v-model="taskSelected.status">
                                         <option :value="null">Seleccione uno...</option>

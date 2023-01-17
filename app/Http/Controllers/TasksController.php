@@ -37,6 +37,7 @@ class TasksController extends Controller
 
         $tasks = $tasks->with(['status'])
             ->where('user_id', $user->id)
+            ->orderBy('updated_at', 'DESC')
             ->paginate(15);
 
         return response()->json($tasks);
