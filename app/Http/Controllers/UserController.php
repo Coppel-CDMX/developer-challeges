@@ -32,6 +32,7 @@ class UserController extends Controller
                 return response()->json(['error' => 'Por favor verifica que tus credenciales son correctas.'], 400);
             }
         } catch (JWTException $e) {
+            \Log::debug($e);
             return response()->json(['error' => 'Por favor intente más tarde.'], 500);
         }
 
