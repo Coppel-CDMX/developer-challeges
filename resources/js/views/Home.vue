@@ -20,7 +20,8 @@
                     </div>
 
                     <div class="col-auto">
-                        <!-- <button class="btn btn-primary mt-2" @click="search">Buscar</button> -->
+                        <button class="btn btn-primary mt-2" @click="search">Buscar</button>
+                        <button class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#addModal">Agregar</button>
                     </div>
                 </div>
             </div>
@@ -41,51 +42,36 @@
                 <h6 class="text-center">Se ha realizado la acción satisfactoriamente.</h6>
             </div>
 
-            <div class="mt-3 alert alert-danger" role="alert" v-if="errors.length > 0">
-                <h6 class="text-center" v-for="error in errors" :key="error">{{ error }}</h6>
+            <div class="bg-light py-3 px-3 mt-3" v-if="tasks.total == 0">
+                <h6 class="text-center">No se encontraron resultados</h6>
             </div>
 
-            <!-- <div class="bg-light py-3 px-3 mt-3" v-if="tasks.total == 0">
-                <h6 class="text-center">No se encontraron resultados</h6>
-            </div> -->
+            <div class="bg-light py-3 px-3 mt-3" v-else>
+                <p>Total de registros: {{ tasks.total | formatNumber }}</p>
 
-            <!-- <div class="bg-light py-3 px-3 mt-3" v-else>
-                <p>Total de registros: {{ vehiclesHistory.total | formatNumber }}</p>
-
-                <Table :params="vehiclesHistory" v-on:page-selected="search">
+                <Table :params="tasks" v-on:page-selected="search">
                     <template v-slot:head>
-                        <th class="text-center" style="min-width:200px;">Acciones</th>
-                        <th class="text-center" style="min-width:300px;">Estatus Unidad</th>
-                        <th class="text-center" style="min-width:300px;">Motivo de estatus</th>
-                        <th class="text-center" style="min-width:200px;">ID SAP</th>
-                        <th class="text-center" style="min-width:200px;">VIN</th>
-                        <th class="text-center" style="min-width:200px;">DRV</th>
-                        <th class="text-center" style="min-width:200px;">UEN</th>
-                        <th class="text-center" style="min-width:200px;">ID Agencia</th>
-                        <th class="text-center" style="min-width:200px;">Agencia</th>
-                        <th class="text-center" style="min-width:200px;">Función</th>
-                        <th class="text-center">Tipo</th>
-                        <th class="text-center">Marca</th>
-                        <th class="text-center">Año</th>
-                        <th class="text-center" style="min-width:200px;"># Cortinas</th>
-                        <th class="text-center">Fecha</th>
-                        <th class="text-center">Mes</th>
-                        <th class="text-center" style="min-width:200px;">Tipo de vehículo</th>
-                        <th class="text-center">Edad</th>
+                        <th class="text-center">Acciones</th>
+                        <th class="text-center">Título</th>
+                        <th class="text-center">Descripción</th>
+                        <th class="text-center">Estatus</th>
+                        <th class="text-center">Prioridad</th>
+                        <th class="text-center">Fecha de creación</th>
+                        <th class="text-center">Fecha de última actualización</th>
                     </template>
 
-                    <tr v-for="history in vehiclesHistoryData" :key="history.id">
+                    <tr v-for="task in tasksData" :key="task.id">
                         <td class="text-center">
-                            <button
+                            <!-- <button
                                 class="btn btn-success mt-2"
                                 data-bs-toggle="modal"
                                 data-bs-target="#addModal"
                                 @click="openModal(history)"
                             >
                                 Agregar
-                            </button>
+                            </button> -->
 
-                            <button
+                            <!-- <button
                                 class="btn btn-primary mt-2"
                                 data-bs-toggle="modal"
                                 data-bs-target="#updateModal"
@@ -93,79 +79,71 @@
                                 v-if="$moment().diff($moment(history.created_at), 'days') == 0"
                             >
                                 Editar
-                            </button>
+                            </button> -->
                         </td>
-                        <td :class="history.status.symbol === 'disponible' ? 'bg-success' : 'bg-warning'">{{ history.status.name }}</td>
-                        <td class="bg-primary">{{ history.status_reason ? history.status_reason.name : '' }}</td>
-                        <td>{{ history.vehicle.id_sap }}</td>
-                        <td>{{ history.vehicle.vin }}</td>
-                        <td>{{ history.vehicle.agency.uen.drv.name }}</td>
-                        <td>{{ history.vehicle.agency.uen.name }}</td>
-                        <td>{{ history.vehicle.agency.code }}</td>
-                        <td>{{ history.vehicle.agency.name }}</td>
-                        <td>{{ history.use.name }}</td>
-                        <td>{{ history.owner.name }}</td>
-                        <td>{{ history.brand.name }}</td>
-                        <td>{{ history.vehicle.year }}</td>
-                        <td>{{ history.vehicle.number_of_curtains }}</td>
-                        <td>{{ $moment(history.created_at).format('DD/MM/YYYY') }}</td>
-                        <td>{{ $moment(history.created_at).format('MMMM') }}</td>
-                        <td>{{ history.type.name }}</td>
-                        <td>{{ vehicleAge(history.vehicle.year) }}</td>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td class="text-center">{{ task.status.name }}</td>
+                        <td class="text-center">{{ getPriorityText(task.priority) }}</td>
+                        <td class="text-center">{{ $moment(task.created_at).format('DD/MM/YYYY h:mm:ss a') }}</td>
+                        <td class="text-center">{{ $moment(task.updated_at).format('DD/MM/YYYY h:mm:ss a') }}</td>
                     </tr>
                 </Table>
 
-                <p class="mt-3">Total de registros: {{ vehiclesHistory.total | formatNumber }}</p>
-            </div> -->
+                <p class="mt-3">Total de registros: {{ tasks.total | formatNumber }}</p>
+            </div>
         </section>
 
-        <!-- <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addModalLabel">Agregando registro</h5>
+                        <h5 class="modal-title" id="addModalLabel">Agregando Tarea</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="Close"></button>
                     </div>
 
                     <div class="modal-body">
+                        <div class="mt-3 alert alert-danger" role="alert" v-if="errors.length > 0">
+                            <h6 class="text-center" v-for="error in errors" :key="error">{{ error }}</h6>
+                        </div>
+
                         <div class="row">
                             <div class="col text-center">
-                                <label>ID SAP</label>
-                                <input type="text" class="form-control text-muted" readonly :value="historySelected ? historySelected.vehicle.id_sap : '-'">
-                            </div>
-
-                            <div class="col text-center">
-                                <label>VIN</label>
-                                <input type="text" class="form-control text-muted" readonly :value="historySelected ? historySelected.vehicle.vin : '-'">
-                            </div>
-
-                            <div class="col text-center">
-                                <label>ID Agencia</label>
-                                <input type="text" class="form-control text-muted" readonly :value="historySelected ? historySelected.vehicle.agency.code : '-'">
+                                <label>Título</label>
+                                <input type="text" class="form-control" v-model="newTask.title">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
-                                <label>Estatus <strong class="text-danger">*</strong></label>
+                                <label>Descripción</label>
 
-                                <select class="form-control" v-model="status">
-                                    <option :value="null">Seleccione uno...</option>
-                                    <option :value="vehicleStatus" v-for="vehicleStatus in vehiclesStatuses" :key="vehicleStatus.id">
-                                        {{ vehicleStatus.name }}
-                                    </option>
+                                <textarea class="form-control" v-model="newTask.description"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label>Prioridad</label>
+
+                                <select class="form-control" v-model="newTask.priority">
+                                    <option :value="null">Seleccione una...</option>
+                                    <option :value="0">Baja</option>
+                                    <option :value="1">Normal</option>
+                                    <option :value="2">Alta</option>
+                                    <option :value="3">Urgente</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
-                                <label>Motivo del estatus</label>
+                                <label>Estatus</label>
 
-                                <select class="form-control" v-model="statusReason" :disabled="!status || status.symbol == 'disponible'">
+                                <select class="form-control" v-model="newTask.status">
                                     <option :value="null">Seleccione uno...</option>
-                                    <option :value="vehiclesStatusReason" v-for="vehiclesStatusReason in vehiclesStatusReasons" :key="vehiclesStatusReason.id">
-                                        {{ vehiclesStatusReason.name }}
+                                    <option :value="taskStatus" v-for="taskStatus in tasksStatuses" :key="taskStatus.id">
+                                        {{ taskStatus.name }}
                                     </option>
                                 </select>
                             </div>
@@ -174,11 +152,11 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-success" v-if="status" @click.stop.prevent="addRegister">Guardar</button>
+                        <button type="button" class="btn btn-success" @click.stop.prevent="addTask">Guardar</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <!-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -262,39 +240,45 @@
                         end: null
                     }
                 },
+                newTask: {
+                    title: '',
+                    description: '',
+                    priority: null,
+                    status: null
+                },
                 taskSelected: null,
                 status: null,
                 showSuccessMessage: false
             };
         },
-        // mounted() {
-        //     this.fetchVehiclesStatuses();
+        mounted() {
+            this.getTasksStatuses();
 
-        //     this.fetchVehiclesHistory({
-        //         ...this.filters,
-        //         page: 1
-        //     });
-        // },
+            this.getTasks({
+                ...this.filters,
+                page: 1
+            });
+        },
         computed: {
             ...mapState({
         //         user: state => state.user.user,
-        //         newHistorySaved: state => state.vehiclesHistory.saved,
-        //         vehiclesStatuses: state => state.vehiclesStatus.items,
-        //         vehiclesHistory: state => state.vehiclesHistory.items,
+                newTaskSaved: state => state.task.taskSaved,
+                tasksStatuses: state => state.taskStatus.statuses,
+                tasks: state => state.task.tasks,
         //         vehiclesStatusReasons: state => state.vehiclesStatusReason.items,
-                errors: state => state.user.errors,
+                errors: state => state.task.errors,
         //         copyLastHistory: state => state.vehiclesHistory.copyLastHistory
             }),
-        //     vehiclesHistoryData() {
-        //         return this.vehiclesHistory.data || [];
-        //     }
+            tasksData() {
+                return this.tasks.data || [];
+            }
         },
         methods: {
-        //     ...mapWaitingActions({
-        //         fetchVehiclesHistory: {
-        //             action: 'vehiclesHistory/search',
-        //             loader: 'getting vehicles history'
-        //         },
+            ...mapWaitingActions({
+                getTasks: {
+                    action: 'task/getAll',
+                    loader: 'getting tasks'
+                },
         //         exportVehiclesHistory: {
         //             action: 'vehiclesHistory/export',
         //             loader: 'exporting vehicles history'
@@ -303,38 +287,52 @@
         //             action: 'vehiclesHistory/copyLastHistory',
         //             loader: 'copying yesterday history'
         //         },
-        //         fetchVehiclesStatuses: {
-        //             action: 'vehiclesStatus/fetchAll',
-        //             loader: 'getting vehicles statuses'
-        //         },
+                getTasksStatuses: {
+                    action: 'taskStatus/getAll',
+                    loader: 'getting tasks statuses'
+                },
         //         fetchVehiclesStatusReasons: {
         //             action: 'vehiclesStatusReason/fetchAll',
         //             loader: 'getting vehicles status reasons'
         //         },
-        //         addNewRegister: {
-        //             action: 'vehiclesHistory/addOne',
-        //             loader: 'adding new history register'
-        //         },
+                addNewTask: {
+                    action: 'task/insertOne',
+                    loader: 'adding new task'
+                },
         //         updateExistRegister: {
         //             action: 'vehiclesHistory/updateOne',
         //             loader: 'updating new history register'
         //         }
-        //     }),
-        //     search(page = 1) {
-        //         this.fetchVehiclesHistory({
-        //             ...this.filters,
-        //             page
-        //         });
-        //     },
-        //     addRegister() {
-        //         const newRegister = {
-        //             ...this.historySelected,
-        //             status: this.status,
-        //             statusReason: this.statusReason
-        //         };
+            }),
+            search(page = 1) {
+                this.getTasks({
+                    ...this.filters,
+                    page
+                });
+            },
+            addTask() {
+                this.addNewTask(this.newTask);
+            },
+            getPriorityText(priority) {
+                let priorityText = '';
 
-        //         this.addNewRegister(newRegister);
-        //     },
+                switch(priority) {
+                    case 0:
+                        priorityText = 'Baja';
+                    break;
+                    case 1:
+                        priorityText = 'Normal';
+                    break;
+                    case 2:
+                        priorityText = 'Alta';
+                    break;
+                    case 3:
+                        priorityText = 'Urgente';
+                    break;
+                }
+
+                return priorityText;
+            },
         //     updateRegister() {
         //         const updatedRegister = {
         //             ...this.historySelected,
@@ -348,10 +346,10 @@
         //         const dateNow = this.$moment();
         //         return dateNow.diff(vehicleDate, 'years');
         //     },
-        //     openModal(history) {
-        //         this.historySelected = history;
-        //         this.status = history.status;
-        //     },
+            // openModal(task = null) {
+                // this.historySelected = history;
+                // this.status = history.status;
+            // },
             clearFilter(filter) {
                 switch(filter) {
                     case 'keyword':
@@ -382,20 +380,22 @@
         //         }
         //     }
         },
-        // watch: {
-        //     newHistorySaved(newValue) {
-        //         if (newValue) {
-        //             this.historySelected = null;
-        //             this.status = null;
-        //             this.statusReason = '';
-        //             this.$refs.Close.click();
-        //             this.showSuccessMessage = true;
-
-        //             setTimeout(() => {
-        //                 this.showSuccessMessage = false;
-        //             }, 5000);
-        //         }
-        //     },
+        watch: {
+            newTaskSaved(newValue) {
+                if (newValue) {
+                    this.newTask = {
+                        title: '',
+                        description: '',
+                        priority: null,
+                        status: null
+                    };
+                    this.$refs.Close.click();
+                    this.showSuccessMessage = true;
+                    setTimeout(() => {
+                        this.showSuccessMessage = false;
+                    }, 5000);
+                }
+            },
         //     copyLastHistory(newValue) {
         //         if (newValue) {
         //             this.search();
@@ -411,6 +411,6 @@
         //             this.fetchVehiclesStatusReasons({vehiclesStatusId: newValue.id});
         //         }
         //     }
-        // }
+        }
     };
 </script>

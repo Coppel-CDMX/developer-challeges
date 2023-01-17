@@ -357,28 +357,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -397,37 +375,49 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
           end: null
         }
       },
+      newTask: {
+        title: '',
+        description: '',
+        priority: null,
+        status: null
+      },
       taskSelected: null,
       status: null,
       showSuccessMessage: false
     };
   },
-  // mounted() {
-  //     this.fetchVehiclesStatuses();
-
-  //     this.fetchVehiclesHistory({
-  //         ...this.filters,
-  //         page: 1
-  //     });
-  // },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
+  mounted: function mounted() {
+    this.getTasksStatuses();
+    this.getTasks(_objectSpread(_objectSpread({}, this.filters), {}, {
+      page: 1
+    }));
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
     //         user: state => state.user.user,
-    //         newHistorySaved: state => state.vehiclesHistory.saved,
-    //         vehiclesStatuses: state => state.vehiclesStatus.items,
-    //         vehiclesHistory: state => state.vehiclesHistory.items,
+    newTaskSaved: function newTaskSaved(state) {
+      return state.task.taskSaved;
+    },
+    tasksStatuses: function tasksStatuses(state) {
+      return state.taskStatus.statuses;
+    },
+    tasks: function tasks(state) {
+      return state.task.tasks;
+    },
     //         vehiclesStatusReasons: state => state.vehiclesStatusReason.items,
     errors: function errors(state) {
-      return state.user.errors;
+      return state.task.errors;
     }
     //         copyLastHistory: state => state.vehiclesHistory.copyLastHistory
-  })),
-
-  methods: {
-    //     ...mapWaitingActions({
-    //         fetchVehiclesHistory: {
-    //             action: 'vehiclesHistory/search',
-    //             loader: 'getting vehicles history'
-    //         },
+  })), {}, {
+    tasksData: function tasksData() {
+      return this.tasks.data || [];
+    }
+  }),
+  methods: _objectSpread(_objectSpread({}, (0,vue_wait__WEBPACK_IMPORTED_MODULE_0__.mapWaitingActions)({
+    getTasks: {
+      action: 'task/getAll',
+      loader: 'getting tasks'
+    },
     //         exportVehiclesHistory: {
     //             action: 'vehiclesHistory/export',
     //             loader: 'exporting vehicles history'
@@ -436,37 +426,50 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     //             action: 'vehiclesHistory/copyLastHistory',
     //             loader: 'copying yesterday history'
     //         },
-    //         fetchVehiclesStatuses: {
-    //             action: 'vehiclesStatus/fetchAll',
-    //             loader: 'getting vehicles statuses'
-    //         },
+    getTasksStatuses: {
+      action: 'taskStatus/getAll',
+      loader: 'getting tasks statuses'
+    },
     //         fetchVehiclesStatusReasons: {
     //             action: 'vehiclesStatusReason/fetchAll',
     //             loader: 'getting vehicles status reasons'
     //         },
-    //         addNewRegister: {
-    //             action: 'vehiclesHistory/addOne',
-    //             loader: 'adding new history register'
-    //         },
+    addNewTask: {
+      action: 'task/insertOne',
+      loader: 'adding new task'
+    }
     //         updateExistRegister: {
     //             action: 'vehiclesHistory/updateOne',
     //             loader: 'updating new history register'
     //         }
-    //     }),
-    //     search(page = 1) {
-    //         this.fetchVehiclesHistory({
-    //             ...this.filters,
-    //             page
-    //         });
-    //     },
-    //     addRegister() {
-    //         const newRegister = {
-    //             ...this.historySelected,
-    //             status: this.status,
-    //             statusReason: this.statusReason
-    //         };
-    //         this.addNewRegister(newRegister);
-    //     },
+  })), {}, {
+    search: function search() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.getTasks(_objectSpread(_objectSpread({}, this.filters), {}, {
+        page: page
+      }));
+    },
+    addTask: function addTask() {
+      this.addNewTask(this.newTask);
+    },
+    getPriorityText: function getPriorityText(priority) {
+      var priorityText = '';
+      switch (priority) {
+        case 0:
+          priorityText = 'Baja';
+          break;
+        case 1:
+          priorityText = 'Normal';
+          break;
+        case 2:
+          priorityText = 'Alta';
+          break;
+        case 3:
+          priorityText = 'Urgente';
+          break;
+      }
+      return priorityText;
+    },
     //     updateRegister() {
     //         const updatedRegister = {
     //             ...this.historySelected,
@@ -479,10 +482,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     //         const dateNow = this.$moment();
     //         return dateNow.diff(vehicleDate, 'years');
     //     },
-    //     openModal(history) {
-    //         this.historySelected = history;
-    //         this.status = history.status;
-    //     },
+    // openModal(task = null) {
+    // this.historySelected = history;
+    // this.status = history.status;
+    // },
     clearFilter: function clearFilter(filter) {
       switch (filter) {
         case 'keyword':
@@ -510,37 +513,38 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     //             this.copyLastVehiclesHistory();
     //         }
     //     }
+  }),
+  watch: {
+    newTaskSaved: function newTaskSaved(newValue) {
+      var _this = this;
+      if (newValue) {
+        this.newTask = {
+          title: '',
+          description: '',
+          priority: null,
+          status: null
+        };
+        this.$refs.Close.click();
+        this.showSuccessMessage = true;
+        setTimeout(function () {
+          _this.showSuccessMessage = false;
+        }, 5000);
+      }
+    } //     copyLastHistory(newValue) {
+    //         if (newValue) {
+    //             this.search();
+    //             this.showSuccessMessage = true;
+    //             setTimeout(() => {
+    //                 this.showSuccessMessage = false;
+    //             }, 5000);
+    //         }
+    //     },
+    //     status(newValue) {
+    //         if (newValue) {
+    //             this.fetchVehiclesStatusReasons({vehiclesStatusId: newValue.id});
+    //         }
+    //     }
   }
-  // watch: {
-  //     newHistorySaved(newValue) {
-  //         if (newValue) {
-  //             this.historySelected = null;
-  //             this.status = null;
-  //             this.statusReason = '';
-  //             this.$refs.Close.click();
-  //             this.showSuccessMessage = true;
-
-  //             setTimeout(() => {
-  //                 this.showSuccessMessage = false;
-  //             }, 5000);
-  //         }
-  //     },
-  //     copyLastHistory(newValue) {
-  //         if (newValue) {
-  //             this.search();
-  //             this.showSuccessMessage = true;
-
-  //             setTimeout(() => {
-  //                 this.showSuccessMessage = false;
-  //             }, 5000);
-  //         }
-  //     },
-  //     status(newValue) {
-  //         if (newValue) {
-  //             this.fetchVehiclesStatusReasons({vehiclesStatusId: newValue.id});
-  //         }
-  //     }
-  // }
 });
 
 /***/ }),
@@ -987,7 +991,28 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-auto" }),
+          _c("div", { staticClass: "col-auto" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary mt-2",
+                on: { click: _vm.search },
+              },
+              [_vm._v("Buscar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success mt-2",
+                attrs: {
+                  "data-bs-toggle": "modal",
+                  "data-bs-target": "#addModal",
+                },
+              },
+              [_vm._v("Agregar")]
+            ),
+          ]),
         ]),
       ]),
       _vm._v(" "),
@@ -1074,22 +1099,385 @@ var render = function () {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.errors.length > 0
-        ? _c(
+      _vm.tasks.total == 0
+        ? _c("div", { staticClass: "bg-light py-3 px-3 mt-3" }, [
+            _c("h6", { staticClass: "text-center" }, [
+              _vm._v("No se encontraron resultados"),
+            ]),
+          ])
+        : _c(
             "div",
-            {
-              staticClass: "mt-3 alert alert-danger",
-              attrs: { role: "alert" },
-            },
-            _vm._l(_vm.errors, function (error) {
-              return _c("h6", { key: error, staticClass: "text-center" }, [
-                _vm._v(_vm._s(error)),
-              ])
-            }),
-            0
-          )
-        : _vm._e(),
+            { staticClass: "bg-light py-3 px-3 mt-3" },
+            [
+              _c("p", [
+                _vm._v(
+                  "Total de registros: " +
+                    _vm._s(_vm._f("formatNumber")(_vm.tasks.total))
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "Table",
+                {
+                  attrs: { params: _vm.tasks },
+                  on: { "page-selected": _vm.search },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "head",
+                      fn: function () {
+                        return [
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Acciones"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Título"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Descripción"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Estatus"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Prioridad"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Fecha de creación"),
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Fecha de última actualización"),
+                          ]),
+                        ]
+                      },
+                      proxy: true,
+                    },
+                  ]),
+                },
+                [
+                  _vm._v(" "),
+                  _vm._l(_vm.tasksData, function (task) {
+                    return _c("tr", { key: task.id }, [
+                      _c("td", { staticClass: "text-center" }),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(task.title))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(task.description))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(task.status.name)),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(_vm.getPriorityText(task.priority))),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .$moment(task.created_at)
+                              .format("DD/MM/YYYY h:mm:ss a")
+                          )
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm
+                              .$moment(task.updated_at)
+                              .format("DD/MM/YYYY h:mm:ss a")
+                          )
+                        ),
+                      ]),
+                    ])
+                  }),
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("p", { staticClass: "mt-3" }, [
+                _vm._v(
+                  "Total de registros: " +
+                    _vm._s(_vm._f("formatNumber")(_vm.tasks.total))
+                ),
+              ]),
+            ],
+            1
+          ),
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addModal",
+          tabindex: "-1",
+          "aria-labelledby": "addModalLabel",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                { staticClass: "modal-title", attrs: { id: "addModalLabel" } },
+                [_vm._v("Agregando Tarea")]
+              ),
+              _vm._v(" "),
+              _c("button", {
+                ref: "Close",
+                staticClass: "btn-close",
+                attrs: {
+                  type: "button",
+                  "data-bs-dismiss": "modal",
+                  "aria-label": "Close",
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _vm.errors.length > 0
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "mt-3 alert alert-danger",
+                      attrs: { role: "alert" },
+                    },
+                    _vm._l(_vm.errors, function (error) {
+                      return _c(
+                        "h6",
+                        { key: error, staticClass: "text-center" },
+                        [_vm._v(_vm._s(error))]
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col text-center" }, [
+                  _c("label", [_vm._v("Título")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newTask.title,
+                        expression: "newTask.title",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.newTask.title },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.newTask, "title", $event.target.value)
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("label", [_vm._v("Descripción")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newTask.description,
+                        expression: "newTask.description",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    domProps: { value: _vm.newTask.description },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.newTask,
+                          "description",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("label", [_vm._v("Prioridad")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newTask.priority,
+                          expression: "newTask.priority",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.newTask,
+                            "priority",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("option", { domProps: { value: null } }, [
+                        _vm._v("Seleccione una..."),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 0 } }, [
+                        _vm._v("Baja"),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 1 } }, [
+                        _vm._v("Normal"),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 2 } }, [
+                        _vm._v("Alta"),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { domProps: { value: 3 } }, [
+                        _vm._v("Urgente"),
+                      ]),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("label", [_vm._v("Estatus")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newTask.status,
+                          expression: "newTask.status",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.newTask,
+                            "status",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("option", { domProps: { value: null } }, [
+                        _vm._v("Seleccione uno..."),
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.tasksStatuses, function (taskStatus) {
+                        return _c(
+                          "option",
+                          {
+                            key: taskStatus.id,
+                            domProps: { value: taskStatus },
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(taskStatus.name) +
+                                "\n                                "
+                            ),
+                          ]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-bs-dismiss": "modal" },
+                },
+                [_vm._v("Cancelar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function ($event) {
+                      $event.stopPropagation()
+                      $event.preventDefault()
+                      return _vm.addTask.apply(null, arguments)
+                    },
+                  },
+                },
+                [_vm._v("Guardar")]
+              ),
+            ]),
+          ]),
+        ]),
+      ]
+    ),
   ])
 }
 var staticRenderFns = []
