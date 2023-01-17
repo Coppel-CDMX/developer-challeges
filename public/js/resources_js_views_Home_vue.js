@@ -360,6 +360,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -508,6 +512,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         case 'period':
           this.filters.period_start = null;
           this.filters.period_end = null;
+          break;
+        case 'status':
+          this.filters.status = null;
           break;
       }
     }
@@ -1122,6 +1129,37 @@ var render = function () {
                       _vm._s(_vm.filters.period_start) +
                       " - Periodo final: " +
                       _vm._s(_vm.filters.period_end) +
+                      " "
+                  ),
+                  _c(
+                    "strong",
+                    {
+                      staticClass:
+                        "bg-light text-dark rounded-circle pill-erase",
+                    },
+                    [_vm._v("X")]
+                  ),
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.filters.status != null
+            ? _c(
+                "div",
+                {
+                  staticClass: "col-auto text-light py-2 px-3 rounded-4 pill",
+                  on: {
+                    click: function ($event) {
+                      $event.stopPropagation()
+                      $event.preventDefault()
+                      return _vm.clearFilter("status")
+                    },
+                  },
+                },
+                [
+                  _vm._v(
+                    "\n                    Estatus: " +
+                      _vm._s(_vm.filters.status.name) +
                       " "
                   ),
                   _c(

@@ -46,6 +46,10 @@
                     <div class="col-auto text-light py-2 px-3 rounded-4 pill" @click.stop.prevent="clearFilter('period')" v-if="filters.period_start != null || filters.period_end != null">
                         Periodo inicio: {{ filters.period_start }} - Periodo final: {{ filters.period_end }} <strong class="bg-light text-dark rounded-circle pill-erase">X</strong>
                     </div>
+
+                    <div class="col-auto text-light py-2 px-3 rounded-4 pill" @click.stop.prevent="clearFilter('status')" v-if="filters.status != null">
+                        Estatus: {{ filters.status.name }} <strong class="bg-light text-dark rounded-circle pill-erase">X</strong>
+                    </div>
                 </div>
             </div>
 
@@ -351,6 +355,9 @@
                     case 'period':
                         this.filters.period_start = null;
                         this.filters.period_end = null;
+                        break;
+                    case 'status':
+                        this.filters.status = null;
                         break;
                 }
             }
