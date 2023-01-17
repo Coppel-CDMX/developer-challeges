@@ -1,4 +1,6 @@
 {
+    "name": "todo_system_darkhawk21",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "dev": "npm run development",

@@ -8,8 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="shortcut icon" href="./images/assets/icon_disegit_blanco.ico" type="image/x-icon">
-        <title>{{ config('app.name', 'TODO App') }}</title>
+        <link rel="shortcut icon" href="./images/EnriqueCB.ico" type="image/x-icon">
+        <title>{{ config('app.name', 'TODO App | Enrique Carranza') }}</title>
         <!-- Styles -->
         <link rel="stylesheet" type="text/css" href="{{asset(mix('css/app.css'))}}">
     </head>
