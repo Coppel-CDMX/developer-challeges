@@ -1,64 +1,47 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# TODO App | Enrique Carranza Balderas
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+ - Repositorio que contiene el código de la aplicación tipo CRUD sobre un administrador de tareas para la prueba técnica en la vacante de Desarrollador Sr.
+ 
+ Para utilizar sistema tenemos dos maneras principales:
+ 
+ 1. La primera es a través de la nube en el siguiente enlace: http://54.191.62.123/login; el cuál nos enviará al sistema funcionando en un ambiente de servidor en una instancia EC2 de AWS.
+ 
+ 2. La segunda es descargando o clonando el repositorio a nuestra máquina local; para esto es necesario tener configurado un entorno para correr sistemas web basados en PHP, específicamente en la versión 8.1+. Al ser esta la forma en la que se desarrolló, considero importante describir el proceso que debemos seguir para poner en funcionamiento el sistema en esta área (entorno de desarrollo).
 
-## About Laravel
+ Para levantar todo el entorno necesario de forma rápida podemos apoyarnos de alguna herramienta como WAMP o XAMPP, que ya cuentan con Apache, PHP y MySQL; que son las tres herramientas principales en las que se encuentra desarrollado el sistema. En caso contrario, es posible instalar y configurar cada una de ellas de forma separada, para ello lo ideal seguir las instrucciones que nos muestran los sitios web oficiales de cada tecnología.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ Una vez que tengamos configurados estos tres elementos (PHP, MySql y Apache server) en nuestro entorno local, y habiendo clonado el proyecto desde github, procederemos a conectarnos a nuestro servidor de base de datos (esto lo podemos hacer desde cualquier manejador de BD. Entre los que puedo recomendar están DBeaver o MySQL Workbench, ambos de uso gratuito). Una vez conectados, crearemos una base de datos nueva con la siguiente instrucción:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+ CREATE DATABASE developer_challeges;
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+ Después de haber creado la BD regresaremos nuevamente a nuestra carpeta del proyecto. Una vez ahí, haremos una copia del archivo ".env.example", con la diferencia de que el nuevo archivo se llamará ".env". En ".env" nos aseguraremos de tener las siguientes líneas:
 
-## Learning Laravel
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=developer_challeges
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+ Lo anterior nos permitirá que Laravel se conecte a nuestra Base de datos y pueda realizar todos los movimientos que programemos, así que no nos olvidemos de poner nuestras credenciales correctamente, ya que de lo contrario tendremos errores por doquier.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+ Para continuar con el proceso, corremos los siguientes comandos desde dentro de la carpeta raíz del proyecto:
 
-## Laravel Sponsors
+ - composer install
+ - npm install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+ Estos nos instalarán las dependencias que el sistema necesita para funcionar.
 
-### Premium Partners
+ Si todo sale bien, haremos un "php artisan migrate --seed"; esto nos instalará los esquemas de la BD en la BD que creamos anteriormente, también colocará la información necesaria para que el sistema funcione.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+ Si todo sale bien, lo que sigue es abrir dos terminales; en la primera corremos el comando "php artisan serve" y en la segunda "npm run watch".
 
-## Contributing
+ Una vez corriendo, ya casi estamos listos para disfrutar de la aplicación; corremos los siguientes comandos:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+ - php artisan jwt:secret | Que nos sirve para crear una clave de JWT para el cifrado de las peticiones.
+ - php artisan artisan key:generate | Que nos sirve para crear una clave hash de la api.
+ - php artisan dump-autoload | Que nos sirve para hacer un mapeo de todas las clases ya archivos en el proyecto.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ Una vez puesto esto en funcionamiento, nuestro sistena debería poder verse sin problemas en la url que nos indica la consola; en la mayoría de los casos es http://localhost:3000.
+ 
+ Es un proyecto ligero por lo que preferí montar una arquitectura MVC, pues me pareció lo óptimo para el nivel de abstracción, la seguridad y la escalabilidad que tendrá.
