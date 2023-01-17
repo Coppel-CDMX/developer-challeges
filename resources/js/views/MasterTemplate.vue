@@ -6,24 +6,7 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="row">
-                        <div class="col-2">
-                            <div class="bg-light py-3 px-3 mt-3">
-                                <h3 class="title text-center">Menú</h3>
-
-                                <hr>
-
-                                <div class="mb-3">
-                                    <h5>Páginas</h5>
-
-                                    <ul class="list-group list-group-flush">
-                                        <router-link to="/" class="link-dark text-decoration-none list-group-item list-group-item-action bg-light">
-                                            <b-icon icon="house-door" class="me-1"></b-icon> Inicio
-                                        </router-link>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
+                        <div class="col-1"></div>
                         <router-view class="col-10"></router-view>
                     </div>
                 </div>

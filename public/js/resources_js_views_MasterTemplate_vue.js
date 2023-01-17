@@ -97,23 +97,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -399,45 +382,7 @@ var render = function () {
                 "div",
                 { staticClass: "row" },
                 [
-                  _c("div", { staticClass: "col-2" }, [
-                    _c("div", { staticClass: "bg-light py-3 px-3 mt-3" }, [
-                      _c("h3", { staticClass: "title text-center" }, [
-                        _vm._v("Menú"),
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "mb-3" }, [
-                        _c("h5", [_vm._v("Páginas")]),
-                        _vm._v(" "),
-                        _c(
-                          "ul",
-                          { staticClass: "list-group list-group-flush" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass:
-                                  "link-dark text-decoration-none list-group-item list-group-item-action bg-light",
-                                attrs: { to: "/" },
-                              },
-                              [
-                                _c("b-icon", {
-                                  staticClass: "me-1",
-                                  attrs: { icon: "house-door" },
-                                }),
-                                _vm._v(
-                                  " Inicio\n                                    "
-                                ),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                      ]),
-                    ]),
-                  ]),
+                  _c("div", { staticClass: "col-1" }),
                   _vm._v(" "),
                   _c("router-view", { staticClass: "col-10" }),
                 ],
