@@ -1,0 +1,16 @@
+<div class="row">
+  <form [formGroup]="formNewTask" (ngSubmit)="onSubmit()" class="row row-cols-lg-auto g-3 align-items-center">
+
+    <div class="col-12">
+      <label class="visually-hidden" for="task">Task</label>
+      <div class="input-group">
+        <input type="text" formControlName="task" class="form-control" id="task" placeholder="New Task">
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary">Submit</button>
+    </div>
+
+  </form>
+</div>

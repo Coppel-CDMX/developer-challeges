@@ -1,0 +1,32 @@
+<div class="jumbotron text-center">
+  <h1>Login Page</h1>
+  <p>Login!</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" formControlName="email" id="email">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" formControlName="password" id="pwd">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button routerLink="/register" class="btn btn-primary">New User</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-info" (click)="onClick()" >Login with Google</button>
+    </div>
+  </div>
+</div>
