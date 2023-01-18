@@ -21,3 +21,9 @@ Este repositorio contiene una serie de requerimientos que busca evaluar las capa
    2. Entrega por correo:
       1. Crear un archivo comprimido (.zip o .rar) de su proyecto.
       2. Enviar el zip como archivo adjunto al correo de contacto que se le haya proporcionado.
+
+
+# Resultado
+La solucion esta alojada en AppEngine(backend) y Firebase(frontend)
+para acceder a la aplicacion dar click... 
+(Aqui)[https://fir-firebase-login-25fd2.web.app/]
