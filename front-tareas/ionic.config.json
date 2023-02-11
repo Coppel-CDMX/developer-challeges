@@ -1,0 +1,7 @@
+{
+  "name": "front-tareas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

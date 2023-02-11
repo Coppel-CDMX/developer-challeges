@@ -1,0 +1,33 @@
+<ion-header class="ion-text-center">
+    <ion-toolbar>
+        <ion-title class="titulo">{{titulo}}</ion-title>
+        <ion-buttons slot="end" class="boton-cerrar">
+            <ion-button (click)="closeModal()" size="small">
+                <ion-icon name="close-sharp"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="modal-crea-task">
+    <div class="container">
+        <form #f="ngForm">
+            <div padding>
+                <div class="center">
+                    <ion-label class="subtitulo" position="floating" *ngIf="insert">Ingresa nueva tarea</ion-label>
+                    <ion-label class="subtitulo" position="floating" *ngIf="!insert">Editar tarea</ion-label>
+                </div>
+                <ion-item>
+                    <ion-input type="text" (ionChange)='onChangeTime(formNewTask.task)' [(ngModel)]="formNewTask.task" ngControl="task" name="task" #taskForm="ngModel" required maxlength="150"></ion-input>
+                </ion-item>
+                <div class="center">
+                </div>
+                <div padding class="center" *ngIf="f.valid && insert && espacios">
+                    <ion-button size="large" (click)="newTask()">Crear</ion-button>
+                </div>
+                <div padding class="center" *ngIf="f.valid && !insert && espacios">
+                    <ion-button size="large" (click)="upTask()">Editar</ion-button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ion-content>

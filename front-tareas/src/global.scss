@@ -1,0 +1,454 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+.titulo {
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #3880ff;
+    text-align: center;
+}
+
+.subtitulo {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.subtitulo-blanco {
+    font-family: 'Raleway', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.label-blanco {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px !important;
+    font-weight: bold;
+    color: white !important;
+}
+
+.normal {
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 14px !important;
+    color: black !important;
+}
+
+.complemento {
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 12px;
+    font-weight: bold;
+    color: #E52659;
+}
+
+.encabezado {
+    background: #389fff;
+    border-radius: 15px;
+    margin: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+.mayuscula {
+    text-transform: uppercase;
+}
+
+.error {
+    text-align: center !important;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: red !important;
+}
+
+.error-form {
+    text-align: center !important;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.non-selectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* ------------------------------------ Diseño de caja de login ------------------------------------ */
+
+.card-container.card {
+    height: auto;
+    border-radius: 15px 15px 15px 15px;
+    background: linear-gradient(to bottom, rgb(21, 72, 150), rgba(104, 161, 235, 0.596));
+}
+
+.card {
+    background-color: white;
+    /* just in case there no content*/
+    padding: 5px 10px 15px;
+    margin: 0 auto 25px;
+    // margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    border-radius: 50% !important;
+}
+
+ion-row {
+    height: auto !important;
+    padding: 10px;
+}
+
+ion-item {
+    --background: #3881ffab;
+    --color: #fff !important;
+    border-radius: 15px;
+    margin: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px !important;
+    font-weight: bold;
+}
+
+ion-button {
+    margin-top: 20px;
+    --background: #3880ff;
+}
+
+ion-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: white !important;
+    white-space: normal !important;
+}
+
+ion-col {
+    padding: 15px 10px 0px;
+}
+
+span {
+    color: royalblue;
+}
+
+.my-custom-menu {
+    --width: 250px;
+}
+
+.cfdi {
+    height: 50px;
+    width: 60px;
+}
+
+.btn-input-validar {
+    position: absolute;
+    right: 0;
+    background-color: #5CB85C;
+    ion-icon {
+        font-size: 22px;
+    }
+    // height: 100%;
+    width: 80px;
+    color: white;
+    font-weight: bold;
+}
+
+.margin-input {
+    margin-right: 80px;
+}
+
+.ion-item-radio {
+    width: auto !important;
+}
+
+.card-datos-usuario {
+    background-color: white;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.card-carta {
+    background-color: white;
+    /* just in case there no content*/
+    padding: 5px 10px 15px;
+    margin: 0 auto 25px;
+    border-radius: 15px;
+    // margin-top: 50px;
+}
+
+.ion-button-logout {
+    border-radius: 5px;
+    background: red;
+    color: white;
+}
+
+.ion-button-register {
+    border-radius: 5px;
+    background: red !important;
+    color: white !important;
+}
+
+.ion-label-datos {
+    color: royalblue !important;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+.non-selectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.end {
+    text-align: end;
+}
+
+.item-select {
+    --border-color: royalblue;
+}
+
+.item-selection {
+    --border-color: orange;
+}
+
+.cuenta-activa {
+    color: rgb(83, 220, 20) !important;
+}
+
+.cuenta-activa-background {
+    background: rgb(83, 220, 20) !important;
+}
+
+.cuenta-inactiva-background {
+    background: crimson !important;
+}
+
+.cuenta-inactiva {
+    color: crimson !important;
+}
+
+.cuenta-por-activar {
+    color: orange;
+}
+
+.estatus-cuenta {
+    color: white;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.item-blue {
+    color: royalblue;
+}
+
+.strong-text {
+    color: crimson;
+    // font-size: 15px;
+}
+
+.height {
+    height: 300px !important;
+}
+
+
+/* ------------------------------------ Estilos de log-in  ------------------------------------ */
+
+.btn_log_in {
+    padding-top: 7px;
+    background: transparent;
+    ion-icon {
+        font-size: 25px;
+        color: #ffffff;
+    }
+}
+
+
+/* ------------------------------------ Estilos de password  ------------------------------------ */
+
+.btn_eye_icon {
+    position: absolute;
+    right: 0px;
+    bottom: 4px;
+    background: transparent;
+    ion-icon {
+        font-size: 25px;
+        color: #ffffff;
+    }
+}
+
+.input_after {
+    margin-right: 50px;
+}
+
+.input_before {
+    margin-right: 21px;
+}
+
+.btn_eye_icon_after {
+    position: absolute;
+    right: 50px;
+    bottom: 8px;
+    background: transparent;
+    ion-icon {
+        font-size: 16px;
+        color: #ffffff;
+    }
+}
+
+.btn_eye_icon:focus {
+    outline: none !important;
+}
+
+
+/* ------------------------------------ Estilos de modales  ------------------------------------ */
+
+.modal-crea-task {
+    --border-radius: 15px;
+    --background: linear-gradient(to bottom, rgb(21, 72, 150), rgba(21, 73, 150, 0.746));
+}
+
+
+/* ------------------------------------ Estilos de contenedor  ------------------------------------ */
+
+.container {
+    width: 100%;
+    height: 100%;
+    max-width: 100% !important;
+    overflow: auto;
+}
+
+
+/* Tamaño del scroll */
+
+.container::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+
+/* Estilos barra (thumb) de scroll */
+
+.container::-webkit-scrollbar-thumb {
+    background: royalblue;
+    border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Estilos track de scroll */
+
+.container::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-track:hover,
+.container::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+}
+
+@media( max-width: 1300px) {
+    ion-content.background {
+        background-color: #666565 !important;
+    }
+    .modal-grande {
+        --width: 100% !important;
+        --height: 100% !important;
+        --border-radius: 5px;
+    }
+    .modal-mediano {
+        --width: 100% !important;
+        --height: 100% !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    @media( min-width: 767px) {
+        ion-content.background {
+            background-color: #c05a5a;
+        }
+    }
+    @media( max-width: 767px) {
+        ion-content.background {
+            background-color: #1f7e43;
+        }
+    }
+    ion-icon {
+        color: #9f00ff !important;
+    }
+    .form-login {
+        background-color: rgb(61, 60, 60) !important;
+    }
+    .titulo {
+        color: #ffffff !important;
+    }
+    .aviso-privacidad {
+        color: #ffffff !important;
+    }
+    .aviso-privacidad:hover {
+        color: #ffffff !important;
+    }
+    .info_carousel {
+        color: rgb(255, 255, 255) !important;
+    }
+}
+
+@media( min-width: 767px) {
+    ion-content.background {
+        background-color: #666565 !important;
+    }
+}

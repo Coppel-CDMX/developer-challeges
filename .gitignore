@@ -1,0 +1,111 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/back-angular-node/tmp
+/back-angular-node/out-tsc
+/back-angular-node/bazel-out
+
+# Node
+/back-angular-node/node_modules
+/back-angular-node/npm-debug.log
+/back-angular-node/yarn-error.log
+
+# IDEs and editors
+/back-angular-node/.idea/
+/back-angular-node/.project
+/back-angular-node/.classpath
+/back-angular-node/.c9/
+/back-angular-node/*.launch
+/back-angular-node/.settings/
+/back-angular-node/*.sublime-workspace
+
+# Visual Studio Code
+/back-angular-node/.vscode/*
+/back-angular-node/!.vscode/settings.json
+/back-angular-node/!.vscode/tasks.json
+/back-angular-node/!.vscode/launch.json
+/back-angular-node/!.vscode/extensions.json
+/back-angular-node/.history/*
+
+# Miscellaneous
+/back-angular-node/.angular/cache
+/back-angular-node/.sass-cache/
+/back-angular-node/connect.lock
+/back-angular-node/coverage
+/back-angular-node/libpeerconnection.log
+/back-angular-node/testem.log
+/back-angular-node/typings
+
+# System files
+/back-angular-node/.DS_Store
+/back-angular-node/Thumbs.db
+
+# ----------------- Front -----------------
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+/front-tareas/*~
+/front-tareas/*.sw[mnpcod]
+/front-tareas/.tmp
+/front-tareas/*.tmp
+/front-tareas/*.tmp.*
+/front-tareas/UserInterfaceState.xcuserstate
+/front-tareas/$RECYCLE.BIN/
+
+/front-tareas/*.log
+/front-tareas/log.txt
+
+
+/front-tareas/.sourcemaps
+/front-tareas/.versions
+/front-tareas/coverage
+
+# Ionic
+/front-tareas/.ionic
+/front-tareas/www
+/front-tareas/platforms
+/front-tareas/plugins
+
+# Compiled output
+/front-tareas/dist
+/front-tareas/tmp
+/front-tareas/out-tsc
+/front-tareas/bazel-out
+
+# Node
+/front-tareas/node_modules
+/front-tareas/npm-debug.log
+/front-tareas/yarn-error.log
+
+# IDEs and editors
+/front-tareas/.idea/
+/front-tareas/.project
+/front-tareas/.classpath
+/front-tareas/.c9/*.launch
+/front-tareas/.settings/
+/front-tareas/*.sublime-project
+/front-tareas/*.sublime-workspace
+
+# Visual Studio Code
+/front-tareas/.vscode/*
+/front-tareas/!.vscode/settings.json
+/front-tareas/!.vscode/tasks.json
+/front-tareas/!.vscode/launch.json
+/front-tareas/!.vscode/extensions.json
+/front-tareas/.history/*
+
+
+# Miscellaneous
+/front-tareas/.angular
+/front-tareas/.angular/cache
+/front-tareas.sass-cache/
+/front-tareas/connect.lock
+/front-tareas/coverage
+/front-tareas/libpeerconnection.log
+/front-tareas/testem.log
+/front-tareas/typings
+
+# System files
+/front-tareas/.DS_Store
+/front-tareas/Thumbs.db

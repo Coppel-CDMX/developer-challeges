@@ -1,0 +1,52 @@
+<ion-content class="background non-selectable">
+    <div class="container">
+        <ion-grid fixed class="mt-5">
+            <ion-row>
+                <ion-col align-self-center size-xs="12" size-md="12" size-lg="12"></ion-col>
+                <ion-col align-self-center size-xs="12" size-md="12" size-lg="12" class="card card-container">
+                    <div class="center">
+                        <ion-label class="titulo" position="floating">Login</ion-label>
+                    </div>
+                    <img id="profile-img" class="card profile-img-card" src="../../../assets/img/login.png" />
+                    <form #f="ngForm">
+                        <div padding>
+                            <div class="center">
+                                <ion-label class="subtitulo" position="floating">Correo</ion-label>
+                            </div>
+                            <ion-item>
+                                <ion-icon name="person-sharp" slot="start"></ion-icon>
+                                <ion-label position="stacked"><span *ngIf="correoForm.invalid && (correoForm.dirty || correoForm.touched)" class="error-form">Correo incorrecto</span></ion-label>
+                                <ion-input pattern="[a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*@[a-zA-Z0-9_-]+([.][a-zA-Z0-9_-]+)*[.][a-zA-Z]{1,5}" type="text" [(ngModel)]="formLogin.correo" ngControl="correo" name="correo" #correoForm="ngModel" required placeholder="usuario@correo.com"></ion-input>
+                            </ion-item>
+                            <div class="center">
+                                <ion-label class="subtitulo" position="floating">Contraseña</ion-label>
+                            </div>
+                            <ion-item>
+                                <ion-icon name="keypad-sharp" slot="start"></ion-icon>
+                                <ion-input [ngClass]="{'input_after': f.valid && smallContainer,'input_before': !smallContainer || f.invalid}" pattern="^[A-Za-z0-9]{5,30}$" [(ngModel)]="formLogin.contrasenia" ngControl="contrasenia" name="contrasenia" #contraseniaForm="ngModel" required
+                                    placeholder="********" maxlength="50" [type]="passwordTypeInput" clearOnEdit="false"></ion-input>
+                                <button item-end [ngClass]="{'btn_eye_icon_after': f.valid && smallContainer,'btn_eye_icon': !smallContainer || f.invalid }" (click)="togglePasswordMode()">
+                                        <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'"></ion-icon>
+                                    </button>
+                                <button item-end (click)="iniciarSesion()" *ngIf="f.valid && smallContainer" style="background: transparent;" class="btn_log_in">
+                                        <ion-icon name="log-in"></ion-icon>
+                                    </button>
+                            </ion-item>
+                        </div>
+                        <div padding class="center" *ngIf="f.valid && !smallContainer">
+                            <ion-button (click)="iniciarSesion()" size="large">Iniciar Sesión</ion-button>
+                        </div>
+                        <hr>
+                        <div padding class="center">
+                            <p class="mt-3">
+                                <a href="/signIn">
+                                    <ion-label class="subtitulo">Crear cuenta</ion-label>
+                                </a>
+                            </p>
+                        </div>
+                    </form>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
