@@ -28,13 +28,20 @@
                                 <button item-end [ngClass]="{'btn_eye_icon_after': f.valid && smallContainer,'btn_eye_icon': !smallContainer || f.invalid }" (click)="togglePasswordMode()">
                                         <ion-icon [name]="(passwordTypeInput === 'text')?'eye-off':'eye'"></ion-icon>
                                     </button>
-                                <button item-end (click)="iniciarSesion()" *ngIf="f.valid && smallContainer" style="background: transparent;" class="btn_log_in">
+                                <button item-end (click)="iniciarSesion(false,'','')" *ngIf="f.valid && smallContainer" style="background: transparent;" class="btn_log_in">
                                         <ion-icon name="log-in"></ion-icon>
                                     </button>
                             </ion-item>
                         </div>
                         <div padding class="center" *ngIf="f.valid && !smallContainer">
-                            <ion-button (click)="iniciarSesion()" size="large">Iniciar Sesión</ion-button>
+                            <ion-button (click)="iniciarSesion(false,'','')" size="large">Iniciar Sesión</ion-button>
+                        </div>
+                        <hr>
+                        <div class="center">
+                            <ion-button (click)="loginOauth()" size="medium" class="ion-button-register">
+                                <ion-icon name="logo-google" slot="start"></ion-icon>
+                                <ion-label class="subtitulo">Usando tu cuenta de Google</ion-label>
+                            </ion-button>
                         </div>
                         <hr>
                         <div padding class="center">

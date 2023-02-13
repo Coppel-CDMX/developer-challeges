@@ -6,8 +6,9 @@ import { ErrorService } from 'src/app/services/error.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { Platform } from '@ionic/angular';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/interfaces/user';
+// Import the AuthService type from the SDK
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit {
     private _userService: UserService,
     private router: Router,
     private _errorService: ErrorService,
-    public platform: Platform) { 
+    public platform: Platform,
+    public auth: AuthService
+    ) { 
       this.passwordTypeInput = '';
     }
 
@@ -71,6 +74,11 @@ export class LoginComponent implements OnInit {
   startComponents() {
     this.subscriptions = new Subscription();
     this.passwordTypeInput = 'password';
+    this.auth.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.registroUsuarioOauth();
+      }
+    });
     this.getScreenSize();
   }
 
@@ -80,10 +88,11 @@ export class LoginComponent implements OnInit {
    *
    * @memberof InicioComponent
    */
-  async iniciarSesion() {
+  async iniciarSesion( oauth2: boolean, mail: string, password: string ) {
+    console.log(oauth2);
     const user: User = {
-      username: this.formLogin.correo.toUpperCase(),
-      password: this.formLogin.contrasenia
+      username: oauth2 ? mail.toUpperCase() : this.formLogin.correo.toUpperCase(),
+      password: oauth2 ? password : this.formLogin.contrasenia
     }
     this.loading = true;
     let sub = this._userService.login(user).subscribe({
@@ -126,5 +135,44 @@ export class LoginComponent implements OnInit {
       this.smallScreen = false;
     if ( window.innerHeight > 450 )
       this.smallContainer = false;
+  }
+
+/**
+ * Funcion loginOauth
+ */
+  loginOauth() {
+    this.auth.loginWithRedirect();
+  }
+
+  /**
+   * Funcion registroUsuarioOauth -
+   */
+  registroUsuarioOauth() {
+    this.auth.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.auth.user$.subscribe((profile) => {
+          let email = JSON.stringify(profile?.email);
+          let password = JSON.stringify(profile?.sub);
+          const user: User = {
+            username: email.toUpperCase(),
+            password: password
+          }
+          let sub = this._userService.signIn(user).subscribe({
+            next: (v) => {
+              this.toastr.success(`El usuario ${this.username} fue registrado con exito`, 'Usuario registrado');
+              this.router.navigate(['/login']);
+            },
+            error: (e: HttpErrorResponse) => {
+              if (e.error.msg.substring(0, 26) === 'Ya se encuentra registrado')
+                this.iniciarSesion(true, email, password);
+              else
+                this._errorService.msjError(e);
+            }
+          })
+          this.subscriptions.add(sub);
+        });
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 }

@@ -22,7 +22,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { ModalNewTaskComponent } from './components/modals/modal-new-task/modal-new-task.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
+// Import the module from the SDK
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule, // required animations module
+    AuthModule.forRoot({
+      domain: 'dev-awdbfgdh5ehijj3l.us.auth0.com',
+      clientId: 'MXKRN9vAKh6fTUbQpABgHQD6osDqCu4Z',
+      authorizationParams: {
+        redirect_uri: window.location.origin
+      }
+    }),
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
