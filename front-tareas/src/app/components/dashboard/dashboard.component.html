@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+<ion-content class="background non-selectable container">
+    <ion-grid fixed class="mt-5">
+        <ion-row>
+            <ion-col align-self-center size-xs="12" size-md="12" size-lg="12">
+                <div class="container mt-2 text-center">
+                    <h2>TAREAS</h2>
+                    <hr>
+                    <table class="table">
+                        <h1 *ngIf="listTask.length === 0">No hay tareas registradas</h1>
+                        <tbody *ngIf="listTask.length > 0">
+                            <tr *ngFor="let item of listTask">
+                                <td>{{ item.description }} </td>
+                                <td><button class="btn btn-outline-warning" (click)="modalEditTask(item)">Editar</button></td>
+                                <td><button class="btn btn-outline-danger" (click)="modalDeleteTask(item)">Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-outline-primary" (click)="modalNewTask()">Crear tarea</button>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
