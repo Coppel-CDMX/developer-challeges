@@ -1,0 +1,19 @@
+<p style="text-align: center;">Registros del usuario {{usuarioActivo}}</p>
+<div class="body-crear">
+    <button  (click)="crear()" style="margin-right: 20px;">Crear Tarea</button>
+    <button  (click)="logout()" >Logout</button>
+</div>
+<div class="container"> 
+    <table class="table">
+        <tbody>
+            <tr class="row" *ngFor="let item of arrTask" style="border-bottom: 1px black">
+                <td>{{item.id}}</td>
+                <td>{{item.nombre}}</td>
+                <td>
+                    <button (click)="actualizar(item.id)" style="margin-right: 25px;">Editar</button>
+                    <button (click)="borrar(item.id)">Borrar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

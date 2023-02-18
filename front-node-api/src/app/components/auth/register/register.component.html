@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="body">
+        <div class="mi-logo">
+            <h2>Registrate </h2>
+        </div>
+        <form [formGroup]="registro" (ngSubmit)="registrarse()">
+            <div class="input-cool">
+                <input formControlName="nombre" placeholder="Registre un usuario" type="text" />
+            </div>
+            <div class="input-cool">
+                <input formControlName="email" placeholder="Registre tu correo" type="text" />
+            </div>
+            <div class="input-cool">
+                <input formControlName="password" placeholder="Registre su contraseña" type="password" />
+            </div>
+            <div class="buttons">
+                <button type="submit">Registrarse</button><br/><br/>
+                <button routerLink="/tareas/auth/login">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
