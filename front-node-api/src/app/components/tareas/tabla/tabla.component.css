@@ -1,0 +1,29 @@
+.container{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    
+}
+.body-crear{
+    text-align: right;
+    width: 70%;
+}
+table{
+    width: 800px;
+}
+.row{
+    /* padding-top: 25px; */
+    border: 1px solid black ;
+}
+td{
+    border-bottom: 1px solid black ;
+    padding: 25px;
+}
+
+button{
+    background-color: black;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}

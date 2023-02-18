@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    height: 90vh;
+    width: 100vw; 
+    background-color: white;
+}
+
+.body{
+    background-color: rgb(255, 250, 205);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid 1px ;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.mi-logo {
+    padding: 1em;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+}
+form{
+    text-align: center;
+}
+button {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    /* margin-left: 15px; */
+}
+
+/* .buttons{
+    display: flex;
+    justify-content: space-around;
+} */
+
+input {
+    padding: 13px;
+    margin-bottom: 15px;
+    width: 250px;
+}
