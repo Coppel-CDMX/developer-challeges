@@ -15,27 +15,23 @@ Principalmente los siguientes aspectos:
 - Familiaridad con los entornos de desarrollo: Conocimiento y uso de las herramientas de desarrollo frontend más actuales y de mayor uso.
   - Ej: Angular, React, etc.
 
-# Instrucciones previas al desarrollo
+## Instrucciones previas al desarrollo
 
-1. Antes de comenzar a programar:
+Antes de comenzar a programar:
 
-   1. Realice un Fork de este repositorio (https://github.com/Coppel-CDMX/developer-challeges).
-   2. Clone el fork a su máquina local.
-   3. Cree una rama con su nombre completo en su repositorio local.
-      - ej: git checkout -b ERNESTO_HERNANDEZ_CHAVEZ
+1.  Realice un Fork de este repositorio (https://github.com/Coppel-CDMX/developer-challeges).
+2.  Clone el fork a su máquina local.
+3.  Cree una rama con su nombre completo en su repositorio local.
+    - ej: git checkout -b ERNESTO_HERNANDEZ_CHAVEZ
 
-2. Al finalizar, existen 2 (dos) opciones para entregar su proyecto:
+## Requerimientos generales
 
-   1. [Pull Pequest](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork):
-      1. Hacer un push de su rama local a github.
-      2. Crear un Pull Request de la rama con su NOMBRE al repositorio de origen.
-      3. Notificar de la creación del pull request al correo de contacto que se le haya proporcionado.
-   2. Entrega por correo:
-      1. Crear un archivo comprimido (.zip o .rar) de su proyecto.
-      2. Enviar el zip como archivo adjunto al correo de contacto que se le haya proporcionado.
+- El proyecto deberá ser expuesto al acceso público mediante una PaaS (heroku, gcloud, aws, ...).
+- El desarrollo podrá ser realizado en JavaScript o en TypeScript.
+- Se deberá utilizar un framework de desarrollo frontend (Angular, React, Vue.js, etc..)
+- Se deberán agregar instrucciones para construcción y ejecución del proyecto en el archivo README.md del proyecto.
 
-3. El proyecto deberá ser expuesto mediante una PaaS (heroku, gcloud, aws, ...) y los links correspondientes deberán ser incluidos en la descripción del pull request o en el correo donde se entregue el proyecto.
-4. Incluir en el archivo README.md instrucciones, llaves de apis de terceros o cualquier otro dato necesario para correr la aplicación.
+---
 
 # Aplicación de exploración y búsqueda de repositorios en github.
 
@@ -120,3 +116,25 @@ A continuación se presenta el listado de las pantallas y los elementos mínimos
 
 - Gihub API: https://docs.github.com/en/rest/repos/repos
 - Firebase Auth: https://firebase.google.com/docs/auth
+
+---
+
+# Instrucciones de entrega
+
+Al finalizar debera realizar un [Pull Pequest](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) hacia el repositorio original (https://github.com/Coppel-CDMX/developer-challeges), posterior a esto debera informar por correo el termino de su prueba incluyendo la siguiente informacion:
+
+- Link o links al código.
+- Links de acceso a la aplicación.
+
+Ejemplo:
+
+```yaml
+Hola, hago entrega de desarrollo del proyecto de prueba.
+
+Repositorio: https://github.com/xxxxx
+Link de la aplicacion: https://xxxxx.herokuapp.com/
+
+Saludos.
+```
+
+> Todos los links que proporcione deben ser de acceso público

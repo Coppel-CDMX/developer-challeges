@@ -14,25 +14,36 @@ Principalmente los siguientes aspectos:
 - Calidad del código entregado: Conocimiento y uso de buenas prácticas de codificación.
 - Familiaridad con los entornos de desarrollo: Conocimiento y uso de las herramientas de desarrollo backend y frontend más actuales y de mayor uso.
 
-# Instrucciones previas al desarrollo
+## Instrucciones previas al desarrollo
 
-1. Antes de comenzar a programar:
-   1. Realice un Fork de este repositorio (https://github.com/Coppel-CDMX/developer-challeges).
-   2. Clone el fork a su máquina local.
-   3. Cree una rama con su nombre completo en su repositorio local.
-      - ej: git checkout -b ERNESTO_HERNANDEZ_CHAVEZ
-2. Al finalizar, existen 2 (dos) opciones para entregar su proyecto:
-   1. [Pull Pequest](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork):
-      1. Hacer un push de su rama local a github.
-      2. Crear un Pull Request de la rama con su NOMBRE al repositorio de origen.
-      3. Notificar de la creación del pull request al correo de contacto que se le haya proporcionado.
-   2. Entrega por correo:
-      1. Crear un archivo comprimido (.zip o .rar) de su proyecto.
-      2. Enviar el zip como archivo adjunto al correo de contacto que se le haya proporcionado.
-3. El proyecto deberá ser expuesto mediante una PaaS (heroku, gcloud, aws, ...) y los links correspondientes deberán ser incluidos en la descripción del pull request o en el correo donde se entregue el proyecto.
-4. Incluir en el archivo README.md instrucciones, llaves de apis de terceros o cualquier otro dato necesario para correr la aplicación.
+Antes de comenzar a programar:
 
-## Aplicación TODO
+1.  Realice un Fork de este repositorio (https://github.com/Coppel-CDMX/developer-challeges).
+2.  Clone el fork a su máquina local.
+3.  Cree una rama con su nombre completo en su repositorio local.
+    - ej: git checkout -b ERNESTO_HERNANDEZ_CHAVEZ
+
+## Requerimientos
+
+Tanto backend como frontend deberán ser expuestos al acceso público mediante una PaaS (heroku, gcloud, aws, ...) y los links correspondientes deberán ser incluidos en la descripción del pull request o en el correo donde se entregue el proyecto.
+
+### Backend
+
+El desarrollo del backend se deberá hacer según el lenguaje que se elija con alguno de los frameworks descritos en la siguiente tabla:
+
+| Lenguaje              | Frameworks             |
+| --------------------- | ---------------------- |
+| Python                | Django, Flask, Pyramid |
+| Java/Kotlin           | Spring, Spark, Quarkus |
+| JavaScript/TypeScript | Express, Sail, Hapi    |
+
+### Frontend
+
+El desarrollo del front deberá ser en javascript o typescript usando algún framework enfocado al desarrollo front (React, Angular, Vue.js, etc...)
+
+---
+
+# Aplicación TODO
 
 Se requiere generar el backend y el frontend necesario para una aplicación de registro y control de tareas que proporcione las siguientes funcionalidades principales:
 
@@ -145,3 +156,30 @@ A continuación se presenta el listado de las pantallas y los elementos mínimos
 
 - A Cualquier petición realizada al backend se debe añadir autenticación [Oauth2](https://oauth.net/2/) con un bearer token [JWT](https://jwt.io/), exceptuando el registro de usuario y el login.
 - Los datos para las peticiones al back del registro de usuario y el inicio de sesión se deben cifrar previamente.
+
+---
+
+# Instrucciones de entrega
+
+Al finalizar debera realizar un [Pull Pequest](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) hacia el repositorio original (https://github.com/Coppel-CDMX/developer-challeges), posterior a esto debera informar por correo el termino de su prueba incluyendo la siguiente informacion:
+
+- Link o links al código.
+- Links de acceso a la aplicación.
+
+Ejemplo:
+
+```yaml
+Hola, hago entrega de desarrollo del proyecto de prueba.
+
+Backend:
+Repositorio: https://github.com/xxxxx
+Link de la aplicacion: https://xxxxx.herokuapp.com/
+
+Frontend:
+Repositorio: https://github.com/xxxxx
+Link de la aplicacion: https://xxxxx.herokuapp.com/
+
+Saludos.
+```
+
+> Todos los links que proporcione deben ser de acceso público
